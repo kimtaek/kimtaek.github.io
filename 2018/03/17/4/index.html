@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="MySQL," />
+  <meta name="keywords" content="Golang,Dep," />
 
 
 
@@ -94,18 +94,21 @@
 
 
 
-<meta name="description" content="System Timezone 确认123date +%Z// KST 123cat /etc/sysconfig/clock// ZONE=”Asia/Seoul” System Timezone 设置1tzselect 1ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime MySQL Timezone 确认1234mysql&amp;gt; SEL">
-<meta name="keywords" content="MySQL">
+<meta name="description" content="使用homebrew安装golang1brew install go  设置Golang官方默认GOPATH、GOROOT12export GOPATH=$HOME/goexport GOROOT=&quot;/usr/local/Cellar/go/1.10.1/libexec&quot;   安装时的最新版本是 1.10.1 使用 *.pkg安装时GOROOT将是 /usr/local/go 关于更多的环境变量设">
+<meta name="keywords" content="Golang,Dep">
 <meta property="og:type" content="article">
-<meta property="og:title" content="How to change mysql time_zone">
-<meta property="og:url" content="https://kimtaek.github.io/2018/03/14/1/index.html">
+<meta property="og:title" content="Go dependency management tool - Dep">
+<meta property="og:url" content="https://kimtaek.github.io/2018/03/17/4/index.html">
 <meta property="og:site_name" content="Taek&#39;s blog">
-<meta property="og:description" content="System Timezone 确认123date +%Z// KST 123cat /etc/sysconfig/clock// ZONE=”Asia/Seoul” System Timezone 设置1tzselect 1ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime MySQL Timezone 确认1234mysql&amp;gt; SEL">
+<meta property="og:description" content="使用homebrew安装golang1brew install go  设置Golang官方默认GOPATH、GOROOT12export GOPATH=$HOME/goexport GOROOT=&quot;/usr/local/Cellar/go/1.10.1/libexec&quot;   安装时的最新版本是 1.10.1 使用 *.pkg安装时GOROOT将是 /usr/local/go 关于更多的环境变量设">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-03-14T15:26:22.525Z">
+<meta property="og:image" content="https://kimtaek.github.io/images/post/3/install-go.png">
+<meta property="og:image" content="https://kimtaek.github.io/images/post/3/init-dep.png">
+<meta property="og:updated_time" content="2018-04-06T16:25:00.073Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="How to change mysql time_zone">
-<meta name="twitter:description" content="System Timezone 确认123date +%Z// KST 123cat /etc/sysconfig/clock// ZONE=”Asia/Seoul” System Timezone 设置1tzselect 1ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime MySQL Timezone 确认1234mysql&amp;gt; SEL">
+<meta name="twitter:title" content="Go dependency management tool - Dep">
+<meta name="twitter:description" content="使用homebrew安装golang1brew install go  设置Golang官方默认GOPATH、GOROOT12export GOPATH=$HOME/goexport GOROOT=&quot;/usr/local/Cellar/go/1.10.1/libexec&quot;   安装时的最新版本是 1.10.1 使用 *.pkg安装时GOROOT将是 /usr/local/go 关于更多的环境变量设">
+<meta name="twitter:image" content="https://kimtaek.github.io/images/post/3/install-go.png">
 
 
 
@@ -134,13 +137,13 @@
 
 
 
-  <link rel="canonical" href="https://kimtaek.github.io/2018/03/14/1/"/>
+  <link rel="canonical" href="https://kimtaek.github.io/2018/03/17/4/"/>
 
 
 
 
 
-  <title>How to change mysql time_zone | Taek's blog</title>
+  <title>Go dependency management tool - Dep | Taek's blog</title>
   
 
 
@@ -273,7 +276,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kimtaek.github.io/2018/03/14/1/">
+    <link itemprop="mainEntityOfPage" href="https://kimtaek.github.io/2018/03/17/4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kim Taek">
@@ -290,7 +293,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">How to change mysql time_zone</h1>
+          <h1 class="post-title" itemprop="name headline">Go dependency management tool - Dep</h1>
         
 
         <div class="post-meta">
@@ -302,8 +305,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-14T22:07:42+09:00">
-                2018-03-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-17T11:39:46+09:00">
+                2018-03-17
               </time>
             
 
@@ -340,14 +343,29 @@
       
 
       
-        <h2 id="System-Timezone-确认"><a href="#System-Timezone-确认" class="headerlink" title="System Timezone 确认"></a>System Timezone 确认</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">date +%Z</span><br><span class="line"></span><br><span class="line">// KST</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/sysconfig/clock</span><br><span class="line"></span><br><span class="line">// ZONE=”Asia/Seoul”</span><br></pre></td></tr></table></figure>
-<h2 id="System-Timezone-设置"><a href="#System-Timezone-设置" class="headerlink" title="System Timezone 设置"></a>System Timezone 设置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tzselect</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime</span><br></pre></td></tr></table></figure>
-<h2 id="MySQL-Timezone-确认"><a href="#MySQL-Timezone-确认" class="headerlink" title="MySQL Timezone 确认"></a>MySQL Timezone 确认</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT @@global.time_zone, @@session.time_zone;</span><br><span class="line"></span><br><span class="line">// @@global.time_zone | @@session.time_zone</span><br><span class="line">// SYSTEM             | SYSTEM</span><br></pre></td></tr></table></figure>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like '%time_zone%';</span><br><span class="line"></span><br><span class="line">// Variable_name      | Value</span><br><span class="line">// system_time_zone   | KST</span><br><span class="line">// time_zone          | SYSTEM</span><br></pre></td></tr></table></figure>
-<h2 id="MySQL-Timezone-设置"><a href="#MySQL-Timezone-设置" class="headerlink" title="MySQL Timezone 设置"></a>MySQL Timezone 设置</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set @@global.time_zone='Asia/Seoul';</span><br><span class="line">mysql&gt; set global time_zone='Asia/Seoul';</span><br><span class="line">mysql&gt; set @@session.time_zone="+09:00";</span><br><span class="line">mysql&gt; set session time_zone ='Asia/Seoul';</span><br><span class="line">mysql&gt; set time_zone = "+09:00";</span><br></pre></td></tr></table></figure>
-<h2 id="MySQL-Timezone-常用列表"><a href="#MySQL-Timezone-常用列表" class="headerlink" title="MySQL Timezone 常用列表"></a>MySQL Timezone 常用列表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CST</span><br><span class="line">UTC</span><br><span class="line">Asia/Seoul</span><br></pre></td></tr></table></figure>
+        <h2 id="使用homebrew安装golang"><a href="#使用homebrew安装golang" class="headerlink" title="使用homebrew安装golang"></a>使用homebrew安装golang</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install go</span><br></pre></td></tr></table></figure>
+<p><img src="/images/post/3/install-go.png" alt=""></p>
+<h2 id="设置Golang官方默认GOPATH、GOROOT"><a href="#设置Golang官方默认GOPATH、GOROOT" class="headerlink" title="设置Golang官方默认GOPATH、GOROOT"></a>设置Golang官方默认GOPATH、GOROOT</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> GOPATH=<span class="variable">$HOME</span>/go</span><br><span class="line"><span class="built_in">export</span> GOROOT=<span class="string">"/usr/local/Cellar/go/1.10.1/libexec"</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>安装时的最新版本是 <code>1.10.1</code></li>
+<li>使用 *.pkg安装时<code>GOROOT</code>将是 <code>/usr/local/go</code></li>
+<li>关于更多的环境变量设置请参照 <a href="https://golang.org/cmd/go/#hdr-GOPATH_environment_variable" target="_blank" rel="noopener">go help gopath</a></li>
+</ul>
+</blockquote>
+<h2 id="在项目中初始化"><a href="#在项目中初始化" class="headerlink" title="在项目中初始化"></a>在项目中初始化</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dep init <span class="variable">$HOME</span>/go/src/github.com/kimtaek/socar</span><br></pre></td></tr></table></figure>
+<p><img src="/images/post/3/init-dep.png" alt=""></p>
+<blockquote>
+<ul>
+<li><p>在已有项目根目录执行初始化命令时，会分析应用程序所需要(使用)的所有依赖包，得出依赖包清单并生成vendor目录、Gopkg.toml、Gopkg.lock文件</p>
+</li>
+<li><p>创建项目并执行初始化，会得出空vendor目录、Gopkg.toml、Gopkg.lock文件 (如上例子：创建并初始化)</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="在项目中添加包"><a href="#在项目中添加包" class="headerlink" title="在项目中添加包"></a>在项目中添加包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加指定依赖包的最新版本</span></span><br><span class="line">dep ensure -add github.com/aws/aws-lambda-go/events</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加指定具有特定约束(指定版本)的依赖包</span></span><br><span class="line">dep ensure -add github.com/aws/aws-lambda-go/events@^1.0.0</span><br></pre></td></tr></table></figure>
+<h2 id="升级项目的依赖包至最新版本"><a href="#升级项目的依赖包至最新版本" class="headerlink" title="升级项目的依赖包至最新版本"></a>升级项目的依赖包至最新版本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将Gopkg.lock中的约定依赖项更新为到最新版本至Gopkg.toml</span></span><br><span class="line">dep ensure -update</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -364,7 +382,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+            <a href="/tags/Golang/" rel="tag"># Golang</a>
+          
+            <a href="/tags/Dep/" rel="tag"># Dep</a>
           
         </div>
       
@@ -377,15 +397,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/03/16/3/" rel="next" title="Blocking or allowing IP-addresses in Nginx">
+                <i class="fa fa-chevron-left"></i> Blocking or allowing IP-addresses in Nginx
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/15/2/" rel="prev" title="Use Certbot Let's Encrypt SSL Certificates">
-                Use Certbot Let's Encrypt SSL Certificates <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -510,7 +530,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#System-Timezone-确认"><span class="nav-number">1.</span> <span class="nav-text">System Timezone 确认</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#System-Timezone-设置"><span class="nav-number">2.</span> <span class="nav-text">System Timezone 设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-Timezone-确认"><span class="nav-number">3.</span> <span class="nav-text">MySQL Timezone 确认</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-Timezone-设置"><span class="nav-number">4.</span> <span class="nav-text">MySQL Timezone 设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-Timezone-常用列表"><span class="nav-number">5.</span> <span class="nav-text">MySQL Timezone 常用列表</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用homebrew安装golang"><span class="nav-number">1.</span> <span class="nav-text">使用homebrew安装golang</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置Golang官方默认GOPATH、GOROOT"><span class="nav-number">2.</span> <span class="nav-text">设置Golang官方默认GOPATH、GOROOT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在项目中初始化"><span class="nav-number">3.</span> <span class="nav-text">在项目中初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在项目中添加包"><span class="nav-number">4.</span> <span class="nav-text">在项目中添加包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级项目的依赖包至最新版本"><span class="nav-number">5.</span> <span class="nav-text">升级项目的依赖包至最新版本</span></a></li></ol></div>
             
 
           </div>

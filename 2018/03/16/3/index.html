@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="kimtaek,blog,laravel" />
+  <meta name="keywords" content="Nginx," />
 
 
 
@@ -94,14 +94,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="https://kimtaek.github.io/about/index.html">
+<meta name="description" content="Nginx Config1234567891011121314server &amp;#123;  listen 80;  server_name kimtaek.github.io;  charset utf-8;  client_max_body_size 75M;  location / &amp;#123;    deny 192.168.1.1;      # Blocking specific IP">
+<meta name="keywords" content="Nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Blocking or allowing IP-addresses in Nginx">
+<meta property="og:url" content="https://kimtaek.github.io/2018/03/16/3/index.html">
 <meta property="og:site_name" content="Taek&#39;s blog">
+<meta property="og:description" content="Nginx Config1234567891011121314server &amp;#123;  listen 80;  server_name kimtaek.github.io;  charset utf-8;  client_max_body_size 75M;  location / &amp;#123;    deny 192.168.1.1;      # Blocking specific IP">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-03-14T15:26:22.526Z">
+<meta property="og:updated_time" content="2018-04-06T15:38:17.837Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
+<meta name="twitter:title" content="Blocking or allowing IP-addresses in Nginx">
+<meta name="twitter:description" content="Nginx Config1234567891011121314server &amp;#123;  listen 80;  server_name kimtaek.github.io;  charset utf-8;  client_max_body_size 75M;  location / &amp;#123;    deny 192.168.1.1;      # Blocking specific IP">
 
 
 
@@ -130,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://kimtaek.github.io/about/"/>
+  <link rel="canonical" href="https://kimtaek.github.io/2018/03/16/3/"/>
 
 
 
 
 
-  <title>about | Taek's blog</title>
+  <title>Blocking or allowing IP-addresses in Nginx | Taek's blog</title>
   
 
 
@@ -257,33 +261,147 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kimtaek.github.io/2018/03/16/3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kim Taek">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Taek's blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">about</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
+          <h1 class="post-title" itemprop="name headline">Blocking or allowing IP-addresses in Nginx</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-16T22:44:41+09:00">
+                2018-03-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-      </div>
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h2 id="Nginx-Config"><a href="#Nginx-Config" class="headerlink" title="Nginx Config"></a>Nginx Config</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span> kimtaek.github.io;</span><br><span class="line">  <span class="attribute">charset</span> utf-<span class="number">8</span>;</span><br><span class="line">  <span class="attribute">client_max_body_size</span> <span class="number">75M</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">location</span> / &#123;</span><br><span class="line">    <span class="attribute">deny</span> <span class="number">192.168.1.1</span>;      <span class="comment"># Blocking specific IP</span></span><br><span class="line">    <span class="attribute">allow</span> <span class="number">192.168.1.0</span>/<span class="number">24</span>;  <span class="comment"># Your specific IP</span></span><br><span class="line">    <span class="attribute">allow</span> <span class="number">10.1.1.0</span>/<span class="number">16</span>;</span><br><span class="line">    <span class="attribute">allow</span> <span class="number">2001</span>:0db8::/<span class="number">32</span>;</span><br><span class="line">    <span class="attribute">deny</span> all;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/15/2/" rel="next" title="Use Certbot Let's Encrypt SSL Certificates">
+                <i class="fa fa-chevron-left"></i> Use Certbot Let's Encrypt SSL Certificates
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/17/4/" rel="prev" title="Go dependency management tool - Dep">
+                Go dependency management tool - Dep <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -316,8 +434,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -370,6 +497,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx-Config"><span class="nav-number">1.</span> <span class="nav-text">Nginx Config</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -490,10 +633,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 

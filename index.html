@@ -270,6 +270,387 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kimtaek.github.io/2018/03/17/4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kim Taek">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Taek's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/17/4/" itemprop="url">Go dependency management tool - Dep</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-17T11:39:46+09:00">
+                2018-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="使用homebrew安装golang"><a href="#使用homebrew安装golang" class="headerlink" title="使用homebrew安装golang"></a>使用homebrew安装golang</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install go</span><br></pre></td></tr></table></figure>
+<p><img src="/images/post/3/install-go.png" alt=""></p>
+<h2 id="设置Golang官方默认GOPATH、GOROOT"><a href="#设置Golang官方默认GOPATH、GOROOT" class="headerlink" title="设置Golang官方默认GOPATH、GOROOT"></a>设置Golang官方默认GOPATH、GOROOT</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> GOPATH=<span class="variable">$HOME</span>/go</span><br><span class="line"><span class="built_in">export</span> GOROOT=<span class="string">"/usr/local/Cellar/go/1.10.1/libexec"</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>安装时的最新版本是 <code>1.10.1</code></li>
+<li>使用 *.pkg安装时<code>GOROOT</code>将是 <code>/usr/local/go</code></li>
+<li>关于更多的环境变量设置请参照 <a href="https://golang.org/cmd/go/#hdr-GOPATH_environment_variable" target="_blank" rel="noopener">go help gopath</a></li>
+</ul>
+</blockquote>
+<h2 id="在项目中初始化"><a href="#在项目中初始化" class="headerlink" title="在项目中初始化"></a>在项目中初始化</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dep init <span class="variable">$HOME</span>/go/src/github.com/kimtaek/socar</span><br></pre></td></tr></table></figure>
+<p><img src="/images/post/3/init-dep.png" alt=""></p>
+<blockquote>
+<ul>
+<li><p>在已有项目根目录执行初始化命令时，会分析应用程序所需要(使用)的所有依赖包，得出依赖包清单并生成vendor目录、Gopkg.toml、Gopkg.lock文件</p>
+</li>
+<li><p>创建项目并执行初始化，会得出空vendor目录、Gopkg.toml、Gopkg.lock文件 (如上例子：创建并初始化)</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="在项目中添加包"><a href="#在项目中添加包" class="headerlink" title="在项目中添加包"></a>在项目中添加包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加指定依赖包的最新版本</span></span><br><span class="line">dep ensure -add github.com/aws/aws-lambda-go/events</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加指定具有特定约束(指定版本)的依赖包</span></span><br><span class="line">dep ensure -add github.com/aws/aws-lambda-go/events@^1.0.0</span><br></pre></td></tr></table></figure>
+<h2 id="升级项目的依赖包至最新版本"><a href="#升级项目的依赖包至最新版本" class="headerlink" title="升级项目的依赖包至最新版本"></a>升级项目的依赖包至最新版本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将Gopkg.lock中的约定依赖项更新为到最新版本至Gopkg.toml</span></span><br><span class="line">dep ensure -update</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kimtaek.github.io/2018/03/16/3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kim Taek">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Taek's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/16/3/" itemprop="url">Blocking or allowing IP-addresses in Nginx</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-16T22:44:41+09:00">
+                2018-03-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Nginx-Config"><a href="#Nginx-Config" class="headerlink" title="Nginx Config"></a>Nginx Config</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">  <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">  <span class="attribute">server_name</span> kimtaek.github.io;</span><br><span class="line">  <span class="attribute">charset</span> utf-<span class="number">8</span>;</span><br><span class="line">  <span class="attribute">client_max_body_size</span> <span class="number">75M</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">location</span> / &#123;</span><br><span class="line">    <span class="attribute">deny</span> <span class="number">192.168.1.1</span>;      <span class="comment"># Blocking specific IP</span></span><br><span class="line">    <span class="attribute">allow</span> <span class="number">192.168.1.0</span>/<span class="number">24</span>;  <span class="comment"># Your specific IP</span></span><br><span class="line">    <span class="attribute">allow</span> <span class="number">10.1.1.0</span>/<span class="number">16</span>;</span><br><span class="line">    <span class="attribute">allow</span> <span class="number">2001</span>:0db8::/<span class="number">32</span>;</span><br><span class="line">    <span class="attribute">deny</span> all;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kimtaek.github.io/2018/03/15/2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kim Taek">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Taek's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/15/2/" itemprop="url">Use Certbot Let's Encrypt SSL Certificates</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-15T22:46:32+09:00">
+                2018-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="使用Certbot-3个月免费SSL-Certificates"><a href="#使用Certbot-3个月免费SSL-Certificates" class="headerlink" title="使用Certbot 3个月免费SSL Certificates"></a>使用Certbot 3个月免费SSL Certificates</h2><p><img src="/images/post/2/certbot.png" alt=""></p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> egou.co.kr;</span><br><span class="line">    <span class="attribute">return</span> <span class="number">301</span> https://<span class="variable">$host</span><span class="variable">$request_uri</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">443</span> ssl http2;</span><br><span class="line">    <span class="attribute">server_name</span> egou.co.kr;</span><br><span class="line">    <span class="attribute">access_log</span> /var/log/nginx/access.log vhost;</span><br><span class="line">    <span class="attribute">client_max_body_size</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">ssl_certificate</span>        /etc/letsencrypt/live/egou.co.kr/fullchain.pem;</span><br><span class="line">    <span class="attribute">ssl_certificate_key</span>    /etc/letsencrypt/live/egou.co.kr/privkey.pem;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">ssl_prefer_server_ciphers</span> <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">ssl_protocols</span> TLSv1 TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span>;</span><br><span class="line">    <span class="attribute">ssl_ciphers</span> ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-RSA-RC4-SHA:AES128-GCM-SHA256:HIGH:!RC4:!MD5:!aNULL:!EDH:!CAMELLIA;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">ssl_session_cache</span> shared:SSL:<span class="number">10m</span>;</span><br><span class="line">    <span class="attribute">ssl_session_timeout</span> <span class="number">10m</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">add_header</span> Strict-Transport-Security max-age=<span class="number">15638400</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># only used certbot</span></span><br><span class="line">    <span class="attribute">root</span> /var/www/egou.co.kr/;</span><br><span class="line">    <span class="attribute">location</span> /.well-known/acme-challenge/ &#123;</span><br><span class="line">        <span class="attribute">root</span> /var/www/egou.co.kr/;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">error_page</span> <span class="number">497</span>  https://<span class="variable">$host</span>:<span class="variable">$server_port</span><span class="variable">$request_uri</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">proxy_pass</span>              http://172.17.0.4;</span><br><span class="line">        <span class="attribute">proxy_set_header</span>        Host <span class="variable">$host</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span>        X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span>        X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span>        X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span>        X-Forwarded-Host <span class="variable">$http_host</span>;</span><br><span class="line">        <span class="attribute">proxy_read_timeout</span>      <span class="number">90</span>;</span><br><span class="line">        <span class="attribute">proxy_redirect</span>          <span class="literal">off</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="更新-Certificates"><a href="#更新-Certificates" class="headerlink" title="更新 Certificates"></a>更新 Certificates</h2><h2 id="废弃-Certificates"><a href="#废弃-Certificates" class="headerlink" title="废弃 Certificates"></a>废弃 Certificates</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kimtaek.github.io/2018/03/14/1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -429,7 +810,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -442,7 +823,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
