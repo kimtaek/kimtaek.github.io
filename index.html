@@ -270,6 +270,133 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kimtaek.github.io/2018/05/24/5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kim Taek">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Taek's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/24/5/" itemprop="url">MySQL change root password</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-24T12:20:15+09:00">
+                2018-05-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="操作环境"><a href="#操作环境" class="headerlink" title="操作环境"></a>操作环境</h2><p>OS: Ubuntu 16.04<br>MySQL: 5.7.22</p>
+<p><img src="/images/post/5/mysql-5.7.22.png" alt=""></p>
+<h2 id="停止MySQL服务与进入安全模式"><a href="#停止MySQL服务与进入安全模式" class="headerlink" title="停止MySQL服务与进入安全模式"></a>停止MySQL服务与进入安全模式</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 停止MySQL服务</span></span><br><span class="line">service mysql stop</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入安全模式，越过表权限和网络</span></span><br><span class="line">mysqld_safe --skip-grant-tables --skip-networking &amp;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 越过输入密码进入</span></span><br><span class="line">mysql -uroot mysql</span><br></pre></td></tr></table></figure>
+<p><img src="/images/post/5/mysqld_safe-5.7.22.png" alt=""></p>
+<h2 id="进入安全模式更新root用户密码"><a href="#进入安全模式更新root用户密码" class="headerlink" title="进入安全模式更新root用户密码"></a>进入安全模式更新root用户密码</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 更新新密码</span><br><span class="line"><span class="keyword">UPDATE</span> mysql.user <span class="keyword">SET</span> authentication_string=<span class="keyword">PASSWORD</span>(<span class="string">'YOURNEWPASSWORD'</span>), <span class="keyword">plugin</span>=<span class="string">'mysql_native_password'</span> <span class="keyword">WHERE</span> <span class="keyword">User</span>=<span class="string">'root'</span> <span class="keyword">AND</span> Host=<span class="string">'%'</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="开启MySQL服务即可用新密码登录"><a href="#开启MySQL服务即可用新密码登录" class="headerlink" title="开启MySQL服务即可用新密码登录"></a>开启MySQL服务即可用新密码登录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开启MySQL服务</span></span><br><span class="line">service mysql start</span><br></pre></td></tr></table></figure>
+<p>MariaDB: 10.0.34</p>
+<h2 id="同上一样，只是用户表中的列名不一样"><a href="#同上一样，只是用户表中的列名不一样" class="headerlink" title="同上一样，只是用户表中的列名不一样"></a>同上一样，只是用户表中的列名不一样</h2><p><img src="/images/post/5/mariadb-10.0.34.png" alt=""></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 更新新密码</span><br><span class="line"><span class="keyword">UPDATE</span> mysql.user <span class="keyword">set</span> <span class="keyword">Password</span>=<span class="keyword">PASSWORD</span>(<span class="string">'YOURNEWPASSWORD'</span>) <span class="keyword">WHERE</span> <span class="keyword">User</span>=<span class="string">'root'</span> <span class="keyword">AND</span> Host=<span class="string">'%'</span>;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kimtaek.github.io/2018/03/17/4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -810,7 +937,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

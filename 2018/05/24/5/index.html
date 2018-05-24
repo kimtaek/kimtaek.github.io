@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Ubuntu,Certbot,SSL," />
+  <meta name="keywords" content="MySQL,Ubuntu," />
 
 
 
@@ -94,20 +94,22 @@
 
 
 
-<meta name="description" content="使用Certbot 3个月免费SSL Certificates 12345678910111213141516171819202122232425262728293031323334353637383940414243server &amp;#123;    listen 80;    server_name egou.co.kr;    return 301 https://$host$request_">
-<meta name="keywords" content="Ubuntu,Certbot,SSL">
+<meta name="description" content="操作环境OS: Ubuntu 16.04MySQL: 5.7.22  停止MySQL服务与进入安全模式12345678# 停止MySQL服务service mysql stop# 进入安全模式，越过表权限和网络mysqld_safe --skip-grant-tables --skip-networking &amp;amp;# 越过输入密码进入mysql -uroot mysql  进入安全模式更新ro">
+<meta name="keywords" content="MySQL,Ubuntu">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Use Certbot Let&#39;s Encrypt SSL Certificates">
-<meta property="og:url" content="https://kimtaek.github.io/2018/03/15/2/index.html">
+<meta property="og:title" content="MySQL change root password">
+<meta property="og:url" content="https://kimtaek.github.io/2018/05/24/5/index.html">
 <meta property="og:site_name" content="Taek&#39;s blog">
-<meta property="og:description" content="使用Certbot 3个月免费SSL Certificates 12345678910111213141516171819202122232425262728293031323334353637383940414243server &amp;#123;    listen 80;    server_name egou.co.kr;    return 301 https://$host$request_">
+<meta property="og:description" content="操作环境OS: Ubuntu 16.04MySQL: 5.7.22  停止MySQL服务与进入安全模式12345678# 停止MySQL服务service mysql stop# 进入安全模式，越过表权限和网络mysqld_safe --skip-grant-tables --skip-networking &amp;amp;# 越过输入密码进入mysql -uroot mysql  进入安全模式更新ro">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://kimtaek.github.io/images/post/2/certbot.png">
-<meta property="og:updated_time" content="2018-04-07T01:49:32.241Z">
+<meta property="og:image" content="https://kimtaek.github.io/images/post/5/mysql-5.7.22.png">
+<meta property="og:image" content="https://kimtaek.github.io/images/post/5/mysqld_safe-5.7.22.png">
+<meta property="og:image" content="https://kimtaek.github.io/images/post/5/mariadb-10.0.34.png">
+<meta property="og:updated_time" content="2018-05-24T14:09:08.785Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Use Certbot Let&#39;s Encrypt SSL Certificates">
-<meta name="twitter:description" content="使用Certbot 3个月免费SSL Certificates 12345678910111213141516171819202122232425262728293031323334353637383940414243server &amp;#123;    listen 80;    server_name egou.co.kr;    return 301 https://$host$request_">
-<meta name="twitter:image" content="https://kimtaek.github.io/images/post/2/certbot.png">
+<meta name="twitter:title" content="MySQL change root password">
+<meta name="twitter:description" content="操作环境OS: Ubuntu 16.04MySQL: 5.7.22  停止MySQL服务与进入安全模式12345678# 停止MySQL服务service mysql stop# 进入安全模式，越过表权限和网络mysqld_safe --skip-grant-tables --skip-networking &amp;amp;# 越过输入密码进入mysql -uroot mysql  进入安全模式更新ro">
+<meta name="twitter:image" content="https://kimtaek.github.io/images/post/5/mysql-5.7.22.png">
 
 
 
@@ -136,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="https://kimtaek.github.io/2018/03/15/2/"/>
+  <link rel="canonical" href="https://kimtaek.github.io/2018/05/24/5/"/>
 
 
 
 
 
-  <title>Use Certbot Let's Encrypt SSL Certificates | Taek's blog</title>
+  <title>MySQL change root password | Taek's blog</title>
   
 
 
@@ -275,7 +277,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://kimtaek.github.io/2018/03/15/2/">
+    <link itemprop="mainEntityOfPage" href="https://kimtaek.github.io/2018/05/24/5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kim Taek">
@@ -292,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Use Certbot Let's Encrypt SSL Certificates</h1>
+          <h1 class="post-title" itemprop="name headline">MySQL change root password</h1>
         
 
         <div class="post-meta">
@@ -304,8 +306,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-15T22:46:32+09:00">
-                2018-03-15
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-24T12:20:15+09:00">
+                2018-05-24
               </time>
             
 
@@ -342,9 +344,15 @@
       
 
       
-        <h2 id="使用Certbot-3个月免费SSL-Certificates"><a href="#使用Certbot-3个月免费SSL-Certificates" class="headerlink" title="使用Certbot 3个月免费SSL Certificates"></a>使用Certbot 3个月免费SSL Certificates</h2><p><img src="/images/post/2/certbot.png" alt=""></p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> egou.co.kr;</span><br><span class="line">    <span class="attribute">return</span> <span class="number">301</span> https://<span class="variable">$host</span><span class="variable">$request_uri</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">443</span> ssl http2;</span><br><span class="line">    <span class="attribute">server_name</span> egou.co.kr;</span><br><span class="line">    <span class="attribute">access_log</span> /var/log/nginx/access.log vhost;</span><br><span class="line">    <span class="attribute">client_max_body_size</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">ssl_certificate</span>        /etc/letsencrypt/live/egou.co.kr/fullchain.pem;</span><br><span class="line">    <span class="attribute">ssl_certificate_key</span>    /etc/letsencrypt/live/egou.co.kr/privkey.pem;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">ssl_prefer_server_ciphers</span> <span class="literal">on</span>;</span><br><span class="line">    <span class="attribute">ssl_protocols</span> TLSv1 TLSv1.<span class="number">1</span> TLSv1.<span class="number">2</span>;</span><br><span class="line">    <span class="attribute">ssl_ciphers</span> ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-RSA-RC4-SHA:AES128-GCM-SHA256:HIGH:!RC4:!MD5:!aNULL:!EDH:!CAMELLIA;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">ssl_session_cache</span> shared:SSL:<span class="number">10m</span>;</span><br><span class="line">    <span class="attribute">ssl_session_timeout</span> <span class="number">10m</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">add_header</span> Strict-Transport-Security max-age=<span class="number">15638400</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># only used certbot</span></span><br><span class="line">    <span class="attribute">root</span> /var/www/egou.co.kr/;</span><br><span class="line">    <span class="attribute">location</span> /.well-known/acme-challenge/ &#123;</span><br><span class="line">        <span class="attribute">root</span> /var/www/egou.co.kr/;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">error_page</span> <span class="number">497</span>  https://<span class="variable">$host</span>:<span class="variable">$server_port</span><span class="variable">$request_uri</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">proxy_pass</span>              http://172.17.0.4;</span><br><span class="line">        <span class="attribute">proxy_set_header</span>        Host <span class="variable">$host</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span>        X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span>        X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span>        X-Forwarded-Proto <span class="variable">$scheme</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span>        X-Forwarded-Host <span class="variable">$http_host</span>;</span><br><span class="line">        <span class="attribute">proxy_read_timeout</span>      <span class="number">90</span>;</span><br><span class="line">        <span class="attribute">proxy_redirect</span>          <span class="literal">off</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="更新-Certificates"><a href="#更新-Certificates" class="headerlink" title="更新 Certificates"></a>更新 Certificates</h2><h2 id="废弃-Certificates"><a href="#废弃-Certificates" class="headerlink" title="废弃 Certificates"></a>废弃 Certificates</h2>
+        <h2 id="操作环境"><a href="#操作环境" class="headerlink" title="操作环境"></a>操作环境</h2><p>OS: Ubuntu 16.04<br>MySQL: 5.7.22</p>
+<p><img src="/images/post/5/mysql-5.7.22.png" alt=""></p>
+<h2 id="停止MySQL服务与进入安全模式"><a href="#停止MySQL服务与进入安全模式" class="headerlink" title="停止MySQL服务与进入安全模式"></a>停止MySQL服务与进入安全模式</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 停止MySQL服务</span></span><br><span class="line">service mysql stop</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入安全模式，越过表权限和网络</span></span><br><span class="line">mysqld_safe --skip-grant-tables --skip-networking &amp;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 越过输入密码进入</span></span><br><span class="line">mysql -uroot mysql</span><br></pre></td></tr></table></figure>
+<p><img src="/images/post/5/mysqld_safe-5.7.22.png" alt=""></p>
+<h2 id="进入安全模式更新root用户密码"><a href="#进入安全模式更新root用户密码" class="headerlink" title="进入安全模式更新root用户密码"></a>进入安全模式更新root用户密码</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 更新新密码</span><br><span class="line"><span class="keyword">UPDATE</span> mysql.user <span class="keyword">SET</span> authentication_string=<span class="keyword">PASSWORD</span>(<span class="string">'YOURNEWPASSWORD'</span>), <span class="keyword">plugin</span>=<span class="string">'mysql_native_password'</span> <span class="keyword">WHERE</span> <span class="keyword">User</span>=<span class="string">'root'</span> <span class="keyword">AND</span> Host=<span class="string">'%'</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="开启MySQL服务即可用新密码登录"><a href="#开启MySQL服务即可用新密码登录" class="headerlink" title="开启MySQL服务即可用新密码登录"></a>开启MySQL服务即可用新密码登录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开启MySQL服务</span></span><br><span class="line">service mysql start</span><br></pre></td></tr></table></figure>
+<p>MariaDB: 10.0.34</p>
+<h2 id="同上一样，只是用户表中的列名不一样"><a href="#同上一样，只是用户表中的列名不一样" class="headerlink" title="同上一样，只是用户表中的列名不一样"></a>同上一样，只是用户表中的列名不一样</h2><p><img src="/images/post/5/mariadb-10.0.34.png" alt=""></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 更新新密码</span><br><span class="line"><span class="keyword">UPDATE</span> mysql.user <span class="keyword">set</span> <span class="keyword">Password</span>=<span class="keyword">PASSWORD</span>(<span class="string">'YOURNEWPASSWORD'</span>) <span class="keyword">WHERE</span> <span class="keyword">User</span>=<span class="string">'root'</span> <span class="keyword">AND</span> Host=<span class="string">'%'</span>;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -361,11 +369,9 @@
       
         <div class="post-tags">
           
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
             <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
-          
-            <a href="/tags/Certbot/" rel="tag"># Certbot</a>
-          
-            <a href="/tags/SSL/" rel="tag"># SSL</a>
           
         </div>
       
@@ -378,8 +384,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/14/1/" rel="next" title="How to change mysql time_zone">
-                <i class="fa fa-chevron-left"></i> How to change mysql time_zone
+              <a href="/2018/03/17/4/" rel="next" title="Go dependency management tool - Dep">
+                <i class="fa fa-chevron-left"></i> Go dependency management tool - Dep
               </a>
             
           </div>
@@ -387,10 +393,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/16/3/" rel="prev" title="Blocking or allowing IP-addresses in Nginx">
-                Blocking or allowing IP-addresses in Nginx <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -515,7 +517,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Certbot-3个月免费SSL-Certificates"><span class="nav-number">1.</span> <span class="nav-text">使用Certbot 3个月免费SSL Certificates</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新-Certificates"><span class="nav-number">2.</span> <span class="nav-text">更新 Certificates</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#废弃-Certificates"><span class="nav-number">3.</span> <span class="nav-text">废弃 Certificates</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#操作环境"><span class="nav-number">1.</span> <span class="nav-text">操作环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#停止MySQL服务与进入安全模式"><span class="nav-number">2.</span> <span class="nav-text">停止MySQL服务与进入安全模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进入安全模式更新root用户密码"><span class="nav-number">3.</span> <span class="nav-text">进入安全模式更新root用户密码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开启MySQL服务即可用新密码登录"><span class="nav-number">4.</span> <span class="nav-text">开启MySQL服务即可用新密码登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同上一样，只是用户表中的列名不一样"><span class="nav-number">5.</span> <span class="nav-text">同上一样，只是用户表中的列名不一样</span></a></li></ol></div>
             
 
           </div>
