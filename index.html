@@ -270,6 +270,250 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kimtaek.github.io/2018/08/12/7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kim Taek">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Taek's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/12/7/" itemprop="url">Docker + Gogs + SSH + Drone.io + Nginx</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-12T21:45:15+09:00">
+                2018-08-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Gogs是Go语言编写的轻量级开源Git-Platform"><a href="#Gogs是Go语言编写的轻量级开源Git-Platform" class="headerlink" title="Gogs是Go语言编写的轻量级开源Git Platform"></a>Gogs是Go语言编写的轻量级开源Git Platform</h1><h2 id="搭建契机"><a href="#搭建契机" class="headerlink" title="搭建契机"></a>搭建契机</h2><p>我在职的公司在韩国，运营的服务是针对中国用户。<br>目前使用阿里云服务器 + 代码托管Gogs + Drone来处理自动部署。</p>
+<p>之前代码托管使用Bitbucket，发现自动部署的时候很慢。<br>而且Drone因代码pull的时候频繁发生Zombie Process，针对这样的现象<br>也想过搭建vpn服务，不过与Drone相应用的时候没有找到合理的方法，<br>所以弃之，开始自行搭建代码托管所。也考虑过大名鼎鼎的Gitlab，<br>在比较之下Gitlab会比较占用服务器资源，就打消了念头，直接奔向Gogs了。<br>也有Gitae的开源项目但是还是选择了Gogs，支持国产,<br>而且目前使用的Drone也可以直接与Gogs相配合使用。</p>
+<h1 id="未完待续-…"><a href="#未完待续-…" class="headerlink" title="未完待续 …"></a>未完待续 …</h1>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kimtaek.github.io/2018/07/09/6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kim Taek">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Taek's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/09/6/" itemprop="url">CI/CD Open Source Platform - Drone</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-09T10:32:15+09:00">
+                2018-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Drone是Go语言编写的轻量级CI-CD工具"><a href="#Drone是Go语言编写的轻量级CI-CD工具" class="headerlink" title="Drone是Go语言编写的轻量级CI/CD工具"></a>Drone是Go语言编写的轻量级CI/CD工具</h1><p><img src="/images/post/6/drone.png" alt=""></p>
+<h1 id="体验感受"><a href="#体验感受" class="headerlink" title="体验感受"></a>体验感受</h1><p>简单说明的话，Drone Server用于接受bitbucket/github等代码托管所发出的<code>webHook</code>并解析代码Root上的<code>.drone.yml</code>文件所配置的自定义程序并传达给连接Server的Agent<br>来执行实际的测试与部署。<br>测试与部署的速度很快，而且占用服务器资源很少，这点非常喜欢，不过可惜的是没有并行，比方说<code>api</code> 与 <code>bms</code> 两个项目同时push之后，FIFO的进行处理。</p>
+<h1 id="配置说明"><a href="#配置说明" class="headerlink" title="配置说明"></a>配置说明</h1><p>DRONE_SECRET: 约定与agent的密钥<br>8000 端口: WEB Service 端口, 用来看部署情况<br>9909 端口: Drone Server 端口，用来agent连接<br>DRONE_SERVER: 指定Drone Server的监听端口</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// run.sh 创建server 与 agent</span><br><span class="line">docker run -d \</span><br><span class="line">  -e DRONE_BITBUCKET=<span class="literal">true</span> \</span><br><span class="line">  -e DRONE_BITBUCKET_CLIENT=Vs4pNdLp4y7CLCEBRs \</span><br><span class="line">  -e DRONE_BITBUCKET_SECRET=8zXEkmzfrRKSTbcCJRcpdzkDCWSeeVpH \</span><br><span class="line">  -e DRONE_SECRET=41F386 \</span><br><span class="line">  -e DRONE_OPEN=<span class="literal">true</span> \</span><br><span class="line">  -e DRONE_HOST=https://deployment.example.com \</span><br><span class="line">  -e DRONE_ADMIN=kimtaek \</span><br><span class="line">  -v /home/ec2-user/workspace/drone:/var/lib/drone \</span><br><span class="line">  -p 9909:9000 \</span><br><span class="line">  -p 9900:8000 \</span><br><span class="line">  --restart=always \</span><br><span class="line">  --name=drone \</span><br><span class="line">  drone/drone:latest</span><br><span class="line"></span><br><span class="line">docker run -d \</span><br><span class="line">  -e DRONE_SECRET=41F386 \</span><br><span class="line">  -e DRONE_SERVER=被部署IP:9909 \</span><br><span class="line">  -v /var/run/docker.sock:/var/run/docker.sock \</span><br><span class="line">  -v /www:/www \</span><br><span class="line">  --restart=always \</span><br><span class="line">  --name=agent \</span><br><span class="line">  drone/agent:latest</span><br></pre></td></tr></table></figure>
+<h1 id="项目Root下的配置文件"><a href="#项目Root下的配置文件" class="headerlink" title="项目Root下的配置文件"></a>项目Root下的配置文件</h1><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">workspace:</span></span><br><span class="line"><span class="attr">  base:</span> <span class="string">/www/</span></span><br><span class="line"><span class="attr">  path:</span> <span class="string">bms</span></span><br><span class="line"></span><br><span class="line"><span class="attr">clone:</span></span><br><span class="line"><span class="attr">  git:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">plugins/git</span></span><br><span class="line"><span class="attr">    depath:</span> <span class="number">50</span></span><br><span class="line"><span class="attr">    tags:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    when:</span></span><br><span class="line"><span class="attr">      branch:</span> <span class="string">master</span></span><br><span class="line"></span><br><span class="line"><span class="attr">pipeline:</span></span><br><span class="line"><span class="attr">  restore-cache:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">drillster/drone-volume-cache</span></span><br><span class="line"><span class="attr">    restore:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    when:</span></span><br><span class="line"><span class="attr">      branch:</span> <span class="string">master</span></span><br><span class="line"><span class="attr">    mount:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">dist</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">node_modules</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="attr">      - bms:</span><span class="string">/cache</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  build:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="attr">node:8.3.0</span></span><br><span class="line"><span class="attr">    privileged:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    when:</span></span><br><span class="line"><span class="attr">      branch:</span> <span class="string">master</span></span><br><span class="line"><span class="attr">    commands:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">npm</span> <span class="string">run</span> <span class="string">build</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">cp</span> <span class="bullet">-R</span> <span class="string">/www/bms/dist</span> <span class="string">/drone</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">find</span> <span class="string">/www/bms/dist</span> <span class="string">!</span> <span class="bullet">-newermt</span> <span class="string">`date</span> <span class="string">'+%Y-%m-%d'</span><span class="string">`</span> <span class="string">| xargs rm -rf</span></span><br><span class="line"><span class="string"></span><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/www/bms:/drone</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  rebuild-cache:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">drillster/drone-volume-cache</span></span><br><span class="line"><span class="attr">    rebuild:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    when:</span></span><br><span class="line"><span class="attr">      branch:</span> <span class="string">master</span></span><br><span class="line"><span class="attr">    mount:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">dist</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">node_modules</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="attr">      - bms:</span><span class="string">/cache</span></span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://kimtaek.github.io/2018/05/24/5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -937,7 +1181,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -950,7 +1194,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

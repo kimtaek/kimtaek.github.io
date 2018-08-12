@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="kimtaek,blog,laravel" />
+  <meta name="keywords" content="Drone,Docker,Gogs,SSH," />
 
 
 
@@ -94,13 +94,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Taek&#39;s blog">
-<meta property="og:url" content="https://kimtaek.github.io/archives/index.html">
+<meta name="description" content="Gogs是Go语言编写的轻量级开源Git Platform搭建契机我在职的公司在韩国，运营的服务是针对中国用户。目前使用阿里云服务器 + 代码托管Gogs + Drone来处理自动部署。 之前代码托管使用Bitbucket，发现自动部署的时候很慢。而且Drone因代码pull的时候频繁发生Zombie Process，针对这样的现象也想过搭建vpn服务，不过与Drone相应用的时候没有找到合理的方">
+<meta name="keywords" content="Drone,Docker,Gogs,SSH">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker + Gogs + SSH + Drone.io + Nginx">
+<meta property="og:url" content="https://kimtaek.github.io/2018/08/12/7/index.html">
 <meta property="og:site_name" content="Taek&#39;s blog">
+<meta property="og:description" content="Gogs是Go语言编写的轻量级开源Git Platform搭建契机我在职的公司在韩国，运营的服务是针对中国用户。目前使用阿里云服务器 + 代码托管Gogs + Drone来处理自动部署。 之前代码托管使用Bitbucket，发现自动部署的时候很慢。而且Drone因代码pull的时候频繁发生Zombie Process，针对这样的现象也想过搭建vpn服务，不过与Drone相应用的时候没有找到合理的方">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-08-12T14:45:32.119Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Taek&#39;s blog">
+<meta name="twitter:title" content="Docker + Gogs + SSH + Drone.io + Nginx">
+<meta name="twitter:description" content="Gogs是Go语言编写的轻量级开源Git Platform搭建契机我在职的公司在韩国，运营的服务是针对中国用户。目前使用阿里云服务器 + 代码托管Gogs + Drone来处理自动部署。 之前代码托管使用Bitbucket，发现自动部署的时候很慢。而且Drone因代码pull的时候频繁发生Zombie Process，针对这样的现象也想过搭建vpn服务，不过与Drone相应用的时候没有找到合理的方">
 
 
 
@@ -129,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://kimtaek.github.io/archives/"/>
+  <link rel="canonical" href="https://kimtaek.github.io/2018/08/12/7/"/>
 
 
 
 
 
-  <title>Archive | Taek's blog</title>
+  <title>Docker + Gogs + SSH + Drone.io + Nginx | Taek's blog</title>
   
 
 
@@ -160,7 +165,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -254,296 +259,154 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://kimtaek.github.io/2018/08/12/7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kim Taek">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Taek's blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">Docker + Gogs + SSH + Drone.io + Nginx</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-12T21:45:15+09:00">
+                2018-08-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        Um..! 7 posts in total. Keep on posting.
-      </span>
 
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h2 class="archive-year motion-element" id="archive-year-2018">2018</h2>
-          </div>
-        
-        
+            
+          
 
-        
+          
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/08/12/7/" itemprop="url">
-              
-                <span itemprop="name">Docker + Gogs + SSH + Drone.io + Nginx</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-12T21:45:15+09:00"
-              content="2018-08-12" >
-          08-12
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+        </div>
+      </header>
+    
 
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/09/6/" itemprop="url">
-              
-                <span itemprop="name">CI/CD Open Source Platform - Drone</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-09T10:32:15+09:00"
-              content="2018-07-09" >
-          07-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/24/5/" itemprop="url">
-              
-                <span itemprop="name">MySQL change root password</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-24T12:20:15+09:00"
-              content="2018-05-24" >
-          05-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/03/17/4/" itemprop="url">
-              
-                <span itemprop="name">Go dependency management tool - Dep</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-03-17T11:39:46+09:00"
-              content="2018-03-17" >
-          03-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+        <h1 id="Gogs是Go语言编写的轻量级开源Git-Platform"><a href="#Gogs是Go语言编写的轻量级开源Git-Platform" class="headerlink" title="Gogs是Go语言编写的轻量级开源Git Platform"></a>Gogs是Go语言编写的轻量级开源Git Platform</h1><h2 id="搭建契机"><a href="#搭建契机" class="headerlink" title="搭建契机"></a>搭建契机</h2><p>我在职的公司在韩国，运营的服务是针对中国用户。<br>目前使用阿里云服务器 + 代码托管Gogs + Drone来处理自动部署。</p>
+<p>之前代码托管使用Bitbucket，发现自动部署的时候很慢。<br>而且Drone因代码pull的时候频繁发生Zombie Process，针对这样的现象<br>也想过搭建vpn服务，不过与Drone相应用的时候没有找到合理的方法，<br>所以弃之，开始自行搭建代码托管所。也考虑过大名鼎鼎的Gitlab，<br>在比较之下Gitlab会比较占用服务器资源，就打消了念头，直接奔向Gogs了。<br>也有Gitae的开源项目但是还是选择了Gogs，支持国产,<br>而且目前使用的Drone也可以直接与Gogs相配合使用。</p>
+<h1 id="未完待续-…"><a href="#未完待续-…" class="headerlink" title="未完待续 …"></a>未完待续 …</h1>
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/03/16/3/" itemprop="url">
-              
-                <span itemprop="name">Blocking or allowing IP-addresses in Nginx</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-03-16T22:44:41+09:00"
-              content="2018-03-16" >
-          03-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/03/15/2/" itemprop="url">
-              
-                <span itemprop="name">Use Certbot Let's Encrypt SSL Certificates</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-03-15T22:46:32+09:00"
-              content="2018-03-15" >
-          03-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/03/14/1/" itemprop="url">
-              
-                <span itemprop="name">How to change mysql time_zone</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-03-14T22:07:42+09:00"
-              content="2018-03-14" >
-          03-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Drone/" rel="tag"># Drone</a>
+          
+            <a href="/tags/Docker/" rel="tag"># Docker</a>
+          
+            <a href="/tags/Gogs/" rel="tag"># Gogs</a>
+          
+            <a href="/tags/SSH/" rel="tag"># SSH</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/09/6/" rel="next" title="CI/CD Open Source Platform - Drone">
+                <i class="fa fa-chevron-left"></i> CI/CD Open Source Platform - Drone
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -551,6 +414,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -571,8 +438,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -625,6 +501,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Gogs是Go语言编写的轻量级开源Git-Platform"><span class="nav-number">1.</span> <span class="nav-text">Gogs是Go语言编写的轻量级开源Git Platform</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建契机"><span class="nav-number">1.1.</span> <span class="nav-text">搭建契机</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#未完待续-…"><span class="nav-number">2.</span> <span class="nav-text">未完待续 …</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -745,11 +637,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
 
 
   
