@@ -13,17 +13,12 @@
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <style>
-        .css-1m6pqln {
-        max-width: 660px;
-    }
-    </style>
 </head>
 
 <body>
     <div id="root"></div>
     <script type="text/babel">
-    // https://mui.com/material-ui/react-text-field/
+        // https://mui.com/material-ui/react-text-field/
     const {
         Divider,
         TextField,
@@ -96,22 +91,26 @@
     }
 
     async function sendTransaction() {
-        const params = JSON.parse($("#sendTransactionData").val());
-        const tx = await ethereum.request({
-            method: 'eth_sendTransaction',
-            params: [params],
-        });
+    	try {
+		    const params = JSON.parse($("#sendTransactionData").val());
+            const tx = await ethereum.request({
+                method: 'eth_sendTransaction',
+                params: [params],
+            });
 
-        var txt = $("#transactions");
-        let original = txt.val();
-        let originalArray = original.split("\n");
+            var txt = $("#transactions");
+            let original = txt.val();
+            let originalArray = original.split("\n");
 
-        if (originalArray.length > 5) {
-       	    originalArray.shift();
-            originalArray.shift();
+            if (originalArray.length > 5) {
+                originalArray.shift();
+                originalArray.shift();
+            }
+
+            txt.val(originalArray.join("\n") + "\n" + tx + "\n");
+	    } catch (e) {
+	        return false;
         }
-
-        txt.val(originalArray.join("\n") + "\n" + tx + "\n");
     }
 
     ethereum.on('accountsChanged', function(accounts) {
@@ -126,14 +125,16 @@
 
    $(document).ready(function(){
        $("#sendTransactionData").change(function(){
-           let data = JSON.parse($("#sendTransactionData").val());
-           $("#sendTransactionData").val(JSON.stringify(data, null, 2))
+           try {
+               let data = JSON.parse($("#sendTransactionData").val());
+               $("#sendTransactionData").val(JSON.stringify(data, null, 2))
+           } catch (e) {}
        }); 
    });
    
     function App() {
         return (
-            <Container maxWidth="sm">
+            <Container maxWidth="md">
                 <Box sx={{ my: 4 }}>
                     <Typography variant="h4" component="h1" gutterBottom>Web3 Sandbox</Typography>
                     <Divider />
@@ -154,7 +155,7 @@
                     <br/><br/>
                     <Divider />
                    
-		    <Box sx={{ my: 3 }}>
+					<Box sx={{ my: 3 }}>
                         <Typography variant="h4" component="h1" gutterBottom></Typography>
                         <TextField
                             id="transactions"
