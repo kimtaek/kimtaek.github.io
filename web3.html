@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <title>Web3</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="csrf-token" content="psw2JxraUQxEwAE0uFmzvkKcsId80WSzNyYLdR6a">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://releases.jquery.com/git/jquery-git.js"></script>
+    <style>
+    textarea {
+        width: 500px;
+        height: 500px;
+    }
+    </style>
+    <style type="text/css">
+    #_copy {
+        align-items: center;
+        background: #4494d5;
+        border-radius: 3px;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        font-size: 13px;
+        height: 30px;
+        justify-content: center;
+        position: absolute;
+        width: 60px;
+        z-index: 1000
+    }
+
+    #select-tooltip,
+    #sfModal,
+    .modal-backdrop,
+    div[id^=reader-helper] {
+        display: none !important
+    }
+
+    .modal-open {
+        overflow: auto !important
+    }
+
+    ._sf_adjust_body {
+        padding-right: 0 !important
+    }
+
+    .super_copy_btns_div {
+        position: fixed;
+        width: 154px;
+        left: 10px;
+        top: 45%;
+        background: #e7f1ff;
+        border: 2px solid #4595d5;
+        font-weight: 600;
+        border-radius: 2px;
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+        z-index: 5000
+    }
+
+    .super_copy_btns_logo {
+        width: 100%;
+        background: #4595d5;
+        text-align: center;
+        font-size: 12px;
+        color: #e7f1ff;
+        line-height: 30px;
+        height: 30px
+    }
+
+    .super_copy_btns_btn {
+        display: block;
+        width: 128px;
+        height: 28px;
+        background: #7f5711;
+        border-radius: 4px;
+        color: #fff;
+        font-size: 12px;
+        border: 0;
+        outline: 0;
+        margin: 8px auto;
+        font-weight: 700;
+        cursor: pointer;
+        opacity: .9
+    }
+
+    .super_copy_btns_btn:hover {
+        opacity: .8
+    }
+
+    .super_copy_btns_btn:active {
+        opacity: 1
+    }
+    </style>
+    <style class="automa-element-selector">
+    @font-face {
+        font-family: "Inter var";
+        font-weight: 100 900;
+        font-display: swap;
+        font-style: normal;
+        font-named-instance: "Regular";
+        src: url("chrome-extension://infppggnoaenmfagbfknfkancpbljcca/Inter-roman-latin.var.woff2") format("woff2")
+    }
+
+    .automa-element-selector {
+        direction: ltr
+    }
+
+    [automa-isDragging] {
+        user-select: none
+    }
+
+    [automa-el-list] {
+        outline: 2px dashed #6366f1;
+    }
+    </style>
+</head>
+
+<body _c_t_j1="1">
+    <div id="wrap" class=" main ">
+        <div id="container">
+            <div id="error_message">MetaMask is installed!</div>
+            <button class="enableEthereumButton">Init</button>
+            <h2>Account: <span class="showAccount"></span></h2>
+            <textarea id="sendTransactionData"></textarea><br>
+            <button class="sendEthButton">Send Transaction</button>
+            <div id="error_message2"></div>
+            <div id="messages"></div>
+        </div>
+    </div>
+    <script>
+    if (typeof window.ethereum !== 'undefined') {
+        $('#error_message').text('MetaMask is installed!');
+    } else {
+        $('#error_message').text('MetaMask is not installed!');
+    }
+    const ethereumButton = document.querySelector('.enableEthereumButton');
+    const sendEthButton = document.querySelector('.sendEthButton');
+    const showAccount = document.querySelector('.showAccount');
+
+    ethereumButton.addEventListener('click', () => {
+        getAccount();
+    });
+    //Sending Ethereum to an address
+    sendEthButton.addEventListener('click', () => {
+        sendTransaction();
+    });
+
+    async function getAccount() {
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        const account = accounts[0];
+        showAccount.innerHTML = account;
+    }
+    async function sendTransaction() {
+        const params = JSON.parse($("#sendTransactionData").val());
+        const tx = await ethereum.request({
+            method: 'eth_sendTransaction',
+            params: [
+                params
+            ],
+        });
+        console.log(tx)
+        $('messages').text("txHash : " + tx);
+    }
+    ethereum.on('accountsChanged', function(accounts) {
+        $('#error_message').text('changed accounts >>>>>>>>>>> ');
+    });
+    </script>
+    <div id="automa-palette"></div>
+</body>
+
+</html>
