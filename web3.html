@@ -1,158 +1,117 @@
 <!DOCTYPE html>
-<html lang="ko">
-
-<head>
-    <title>Web3</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="csrf-token" content="psw2JxraUQxEwAE0uFmzvkKcsId80WSzNyYLdR6a">
-    <script src="https://cdn.tailwindcss.com"></script>
+<html lang="en">
+  <head>
+    <title>Web3 Sandbox</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <script
+      src="https://unpkg.com/react@latest/umd/react.development.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/react-dom@latest/umd/react-dom.development.js"></script>
+    <script
+      src="https://unpkg.com/@mui/material@latest/umd/material-ui.production.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/@babel/standalone@latest/babel.min.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://releases.jquery.com/git/jquery-git.js"></script>
-    <style>
-    textarea {
-        width: 500px;
-        height: 500px;
-    }
-    </style>
-    <style type="text/css">
-    #_copy {
-        align-items: center;
-        background: #4494d5;
-        border-radius: 3px;
-        color: #fff;
-        cursor: pointer;
-        display: flex;
-        font-size: 13px;
-        height: 30px;
-        justify-content: center;
-        position: absolute;
-        width: 60px;
-        z-index: 1000
-    }
+    <!-- Fonts to support Material Design -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+    // https://mui.com/material-ui/react-text-field/
+      const {
+	      Divider,
+	      TextField,
+        colors,
+        CssBaseline,
+        useMediaQuery,
+        ThemeProvider,
+        Typography,
+        Container,
+        createTheme,
+        Box,
+        Button,
+        SvgIcon,
+        Link,
+        List,
+        ListItem,
+        ListItemText,
+        TableContainer
+      } = MaterialUI;
 
-    #select-tooltip,
-    #sfModal,
-    .modal-backdrop,
-    div[id^=reader-helper] {
-        display: none !important
-    }
+      const theme = createTheme({
+        palette: {
+          primary: {
+            light: '#333',
+            main: '#000',
+            dark: '#000',
+            contrastText: '#fff',
+          },
+        },
+      });
 
-    .modal-open {
-        overflow: auto !important
-    }
+      function Copyright() {
+        return (
+          <Typography variant="body2" color="text.secondary" align="center">
+            {'Copyright © '}
+            <Link color="inherit" href="#">
+              Web3 Sandbox
+            </Link>{' '}
+            {new Date().toISOString()}
+            {'.'}
+          </Typography>
+        );
+      }
 
-    ._sf_adjust_body {
-        padding-right: 0 !important
-    }
+      function RootPage() {
+        // const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+        // const theme = React.useMemo(
+        //   () =>
+        //     createTheme({
+        //       palette: {
+        //         mode: prefersDarkMode ? 'dark' : 'light',
+        //       },
+        //     }),
+        //   [prefersDarkMode],
+        // );
 
-    .super_copy_btns_div {
-        position: fixed;
-        width: 154px;
-        left: 10px;
-        top: 45%;
-        background: #e7f1ff;
-        border: 2px solid #4595d5;
-        font-weight: 600;
-        border-radius: 2px;
-        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Helvetica Neue, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
-        z-index: 5000
-    }
+        return (
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <App />
+          </ThemeProvider>
+        );
+			}
 
-    .super_copy_btns_logo {
-        width: 100%;
-        background: #4595d5;
-        text-align: center;
-        font-size: 12px;
-        color: #e7f1ff;
-        line-height: 30px;
-        height: 30px
-    }
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(<RootPage/>);
+      
+      // function flush() {
+	    //   root.render(<RootPage/>);
+      // }
+      // setInterval(flush, 500);
 
-    .super_copy_btns_btn {
-        display: block;
-        width: 128px;
-        height: 28px;
-        background: #7f5711;
-        border-radius: 4px;
-        color: #fff;
-        font-size: 12px;
-        border: 0;
-        outline: 0;
-        margin: 8px auto;
-        font-weight: 700;
-        cursor: pointer;
-        opacity: .9
-    }
+      let account = '';
 
-    .super_copy_btns_btn:hover {
-        opacity: .8
-    }
-
-    .super_copy_btns_btn:active {
-        opacity: 1
-    }
-    </style>
-    <style class="automa-element-selector">
-    @font-face {
-        font-family: "Inter var";
-        font-weight: 100 900;
-        font-display: swap;
-        font-style: normal;
-        font-named-instance: "Regular";
-        src: url("chrome-extension://infppggnoaenmfagbfknfkancpbljcca/Inter-roman-latin.var.woff2") format("woff2")
-    }
-
-    .automa-element-selector {
-        direction: ltr
-    }
-
-    [automa-isDragging] {
-        user-select: none
-    }
-
-    [automa-el-list] {
-        outline: 2px dashed #6366f1;
-    }
-    </style>
-</head>
-
-<body _c_t_j1="1">
-    <div id="wrap" class=" main ">
-        <div id="container">
-            <div id="error_message">MetaMask is installed!</div>
-            <button class="enableEthereumButton">Init</button>
-            <h2>Account: <span class="showAccount"></span></h2>
-            <textarea id="sendTransactionData"></textarea><br>
-            <button class="sendEthButton">Send Transaction</button>
-            <div id="error_message2"></div>
-            <div id="messages"></div>
-        </div>
-    </div>
-    <script>
-    if (typeof window.ethereum !== 'undefined') {
-        $('#error_message').text('MetaMask is installed!');
-    } else {
-        $('#error_message').text('MetaMask is not installed!');
-    }
-    const ethereumButton = document.querySelector('.enableEthereumButton');
-    const sendEthButton = document.querySelector('.sendEthButton');
-    const showAccount = document.querySelector('.showAccount');
-
-    ethereumButton.addEventListener('click', () => {
-        getAccount();
-    });
-    //Sending Ethereum to an address
-    sendEthButton.addEventListener('click', () => {
-        sendTransaction();
-    });
-
-    async function getAccount() {
-        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-        const account = accounts[0];
-        showAccount.innerHTML = account;
-    }
-    async function sendTransaction() {
+		  async function getAccount() {
+        $('#account').text("Address: ");
+        let accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+				account = accounts[0];
+        $('#account').text("Address: " + account);
+      }
+      
+      async function sendTransaction() {
         const params = JSON.parse($("#sendTransactionData").val());
         const tx = await ethereum.request({
             method: 'eth_sendTransaction',
@@ -161,13 +120,58 @@
             ],
         });
         console.log(tx)
-        $('messages').text("txHash : " + tx);
     }
-    ethereum.on('accountsChanged', function(accounts) {
-        $('#error_message').text('changed accounts >>>>>>>>>>> ');
-    });
-    </script>
-    <div id="automa-palette"></div>
-</body>
 
+    ethereum.on('accountsChanged', function(accounts) {
+	    console.log('----------')
+			$('#account').text("Address: ");
+    });
+    
+      function App() {
+        return (
+          <Container maxWidth="sm">
+            <Box sx={{ my: 4 }}>
+              <Typography variant="h4" component="h1" gutterBottom>Web3 Sandbox</Typography>
+							<Divider />
+              <br/>
+              <Button onClick={getAccount} variant="contained" color="primary" id="account">Address: - </Button>
+              <br/><br/>
+              <TextField
+                id="standard-multiline-flexible"
+                label="Transaction (JSON)"
+                multiline
+                fullWidth
+                rows={13}
+                color="primary"
+							  focused
+                id="sendTransactionData"
+              />
+              <br/><br/>
+              <Button onClick={sendTransaction} variant="contained" color="primary">Submit</Button>
+              <br/><br/>
+              
+              <List
+                sx={{
+                  width: '100%',
+                  maxWidth: 360,
+                  bgcolor: 'background.paper',
+                  position: 'relative',
+                  overflow: 'auto',
+                  maxHeight: 300,
+                  '& ul': { padding: 0 },
+                }}
+                subheader={<li />}
+              >
+
+              </List>
+
+              <br/><br/>
+              <Copyright />
+            </Box>
+          </Container>
+        );
+      }
+
+    </script>
+  </body>
 </html>
