@@ -1,80 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <title>Web3 Sandbox</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1, width=device-width" />
-    <script
-      src="https://unpkg.com/react@latest/umd/react.development.js"
-      crossorigin="anonymous"
-    ></script>
+    <meta content="initial-scale=1, width=device-width" name="viewport" />
+    <script crossorigin="anonymous" src="https://unpkg.com/react@latest/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@latest/umd/react-dom.development.js"></script>
-    <script
-      src="https://unpkg.com/@mui/material@latest/umd/material-ui.production.min.js"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://unpkg.com/@babel/standalone@latest/babel.min.js"
-      crossorigin="anonymous"
-    ></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/@mui/material@latest/umd/material-ui.production.min.js"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/@babel/standalone@latest/babel.min.js"></script>
     <script src="https://releases.jquery.com/git/jquery-git.js"></script>
-    <!-- Fonts to support Material Design -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-    />
-  </head>
-  <body>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        .css-1m6pqln {
+        max-width: 660px;
+    }
+    </style>
+</head>
+
+<body>
     <div id="root"></div>
     <script type="text/babel">
     // https://mui.com/material-ui/react-text-field/
-      const {
-	      Divider,
-	      TextField,
-        colors,
+    const {
+        Divider,
+        TextField,
         CssBaseline,
-        useMediaQuery,
         ThemeProvider,
         Typography,
         Container,
         createTheme,
         Box,
         Button,
-        SvgIcon,
         Link,
         List,
         ListItem,
         ListItemText,
-        TableContainer
-      } = MaterialUI;
+    } = MaterialUI;
 
-      const theme = createTheme({
+    const theme = createTheme({
         palette: {
-          primary: {
-            light: '#333',
-            main: '#000',
-            dark: '#000',
-            contrastText: '#fff',
-          },
+            primary: {
+                light: '#333',
+                main: '#000',
+                dark: '#000',
+                contrastText: '#fff',
+            },
         },
-      });
+    });
 
-      function Copyright() {
+    function Copyright() {
         return (
-          <Typography variant="body2" color="text.secondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="#">
-              Web3 Sandbox
-            </Link>{' '}
-            {new Date().toISOString()}
-            {'.'}
-          </Typography>
+            <Typography variant="body2" color="text.secondary" align="center">
+                {'Copyright © '}
+                <Link color="inherit" href="#">
+                    Web3 Sandbox
+                </Link>{' '}
+                {new Date().getFullYear()}
+                {'.'}
+            </Typography>
         );
-      }
+    }
 
-      function RootPage() {
+    function RootPage() {
         // const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
         // const theme = React.useMemo(
         //   () =>
@@ -87,91 +77,105 @@
         // );
 
         return (
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <App />
-          </ThemeProvider>
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <App />
+            </ThemeProvider>
         );
-			}
+    }
 
-      const root = ReactDOM.createRoot(document.getElementById('root'));
-      root.render(<RootPage/>);
-      
-      // function flush() {
-	    //   root.render(<RootPage/>);
-      // }
-      // setInterval(flush, 500);
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<RootPage/>);
 
-      let account = '';
-
-		  async function getAccount() {
-        $('#account').text("Address: ");
+    let account = '';
+    async function getAccount() {
+        $('#account').text("Address: -");
         let accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-				account = accounts[0];
+        account = accounts[0];
         $('#account').text("Address: " + account);
-      }
-      
-      async function sendTransaction() {
+    }
+
+    async function sendTransaction() {
         const params = JSON.parse($("#sendTransactionData").val());
         const tx = await ethereum.request({
             method: 'eth_sendTransaction',
-            params: [
-                params
-            ],
+            params: [params],
         });
-        console.log(tx)
+
+        var txt = $("#transactions");
+        let original = txt.val();
+        let originalArray = original.split("\n");
+
+        if (originalArray.length > 5) {
+       	    originalArray.shift();
+            originalArray.shift();
+        }
+
+        txt.val(originalArray.join("\n") + "\n" + tx + "\n");
     }
 
     ethereum.on('accountsChanged', function(accounts) {
-	    console.log('----------')
-			$('#account').text("Address: ");
+        if (accounts.length === 0) {
+            $('#account').text("Address: -");
+        } else if (accounts[0] !== account) {
+            console.log('METAMASK: accountsChanged')
+            account = accounts[0];
+            $('#account').text("Address: " + account);
+        }
     });
-    
-      function App() {
+
+   $(document).ready(function(){
+       $("#sendTransactionData").change(function(){
+           let data = JSON.parse($("#sendTransactionData").val());
+           $("#sendTransactionData").val(JSON.stringify(data, null, 2))
+       }); 
+   });
+   
+    function App() {
         return (
-          <Container maxWidth="sm">
-            <Box sx={{ my: 4 }}>
-              <Typography variant="h4" component="h1" gutterBottom>Web3 Sandbox</Typography>
-							<Divider />
-              <br/>
-              <Button onClick={getAccount} variant="contained" color="primary" id="account">Address: - </Button>
-              <br/><br/>
-              <TextField
-                id="standard-multiline-flexible"
-                label="Transaction (JSON)"
-                multiline
-                fullWidth
-                rows={13}
-                color="primary"
-							  focused
-                id="sendTransactionData"
-              />
-              <br/><br/>
-              <Button onClick={sendTransaction} variant="contained" color="primary">Submit</Button>
-              <br/><br/>
-              
-              <List
-                sx={{
-                  width: '100%',
-                  maxWidth: 360,
-                  bgcolor: 'background.paper',
-                  position: 'relative',
-                  overflow: 'auto',
-                  maxHeight: 300,
-                  '& ul': { padding: 0 },
-                }}
-                subheader={<li />}
-              >
-
-              </List>
-
-              <br/><br/>
-              <Copyright />
-            </Box>
-          </Container>
+            <Container maxWidth="sm">
+                <Box sx={{ my: 4 }}>
+                    <Typography variant="h4" component="h1" gutterBottom>Web3 Sandbox</Typography>
+                    <Divider />
+                    <br/>
+                    <Button onClick={getAccount} variant="contained" color="primary" id="account">Address: -</Button>
+                    <br/><br/>
+                    <TextField
+                        id="sendTransactionData"
+                        label="Transaction (JSON)"
+                        multiline
+                        fullWidth
+                        focused
+                        rows={13}
+                        color="primary"
+                    />
+                    <br/><br/>
+                    <Button onClick={sendTransaction} variant="contained" color="primary">Submit</Button>
+                    <br/><br/>
+                    <Divider />
+                   
+		    <Box sx={{ my: 3 }}>
+                        <Typography variant="h4" component="h1" gutterBottom></Typography>
+                        <TextField
+                            id="transactions"
+                            label="Transactions"
+                            multiline
+                            fullWidth
+                            focused
+                            rows={7}
+                            color="primary"
+                            InputProps={{
+                              readOnly: true,
+                            }}
+                        />
+                    </Box>
+                    <br/><br/>
+                    <Copyright />
+                </Box>
+            </Container>
         );
-      }
+    }
+</script>
+</body>
 
-    </script>
-  </body>
 </html>
