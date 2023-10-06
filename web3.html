@@ -5,178 +5,259 @@
     <title>Web3 Sandbox</title>
     <meta charset="utf-8" />
     <meta content="initial-scale=1, width=device-width" name="viewport" />
-    <script crossorigin="anonymous" src="https://unpkg.com/react@latest/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@latest/umd/react-dom.development.js"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
     <script crossorigin="anonymous" src="https://unpkg.com/@mui/material@latest/umd/material-ui.production.min.js"></script>
     <script crossorigin="anonymous" src="https://unpkg.com/@babel/standalone@latest/babel.min.js"></script>
-    <script src="https://releases.jquery.com/git/jquery-git.js"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/jquery@3.7.1/dist/jquery.js"></script>
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap"/>
 </head>
 
 <body>
     <div id="root"></div>
     <script type="text/babel">
         // https://mui.com/material-ui/react-text-field/
-    const {
-        Divider,
-        TextField,
-        CssBaseline,
-        ThemeProvider,
-        Typography,
-        Container,
-        createTheme,
-        Box,
-        Button,
-        Link,
-        List,
-        ListItem,
-        ListItemText,
-    } = MaterialUI;
+        const {
+            Divider,
+            TextField,
+            CssBaseline,
+            ThemeProvider,
+            Typography,
+            Container,
+            createTheme,
+            Box,
+            Button,
+            Link,
+            FormControl,
+            InputLabel,
+            Select,
+            MenuItem,
+            TableContainer,
+            Table,
+            TableHead,
+            TableBody,
+            TableRow,
+            TableCell,
+            styled,
+            tableCellClasses,
+            Paper
+        } = MaterialUI;
 
-    const theme = createTheme({
-        palette: {
-            primary: {
-                light: '#333',
-                main: '#000',
-                dark: '#000',
-                contrastText: '#fff',
+        const theme = createTheme({
+            palette: {
+                primary: {
+                    light: '#333',
+                    main: '#000',
+                    dark: '#000',
+                    contrastText: '#fff',
+                },
             },
-        },
-    });
+        });
 
-    function Copyright() {
-        return (
-            <Typography variant="body2" color="text.secondary" align="center">
-                {'Copyright © '}
-                <Link color="inherit" href="#">
-                    Web3 Sandbox
-                </Link>{' '}
-                {new Date().getFullYear()}
-                {'.'}
-            </Typography>
-        );
-    }
+        const StyledTableRow = styled(TableRow)(({ theme }) => ({
+            '&:nth-of-type(odd)': {
+                backgroundColor: theme.palette.action.hover,
+            },
+            '&:last-child td, &:last-child th': {
+                border: 0,
+            },
+        }));
 
-    function RootPage() {
-        // const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-        // const theme = React.useMemo(
-        //   () =>
-        //     createTheme({
-        //       palette: {
-        //         mode: prefersDarkMode ? 'dark' : 'light',
-        //       },
-        //     }),
-        //   [prefersDarkMode],
-        // );
+        const StyledTableCell = styled(TableCell)(({ theme }) => ({
+            [`&.${tableCellClasses.head}`]: {
+                backgroundColor: theme.palette.common.black,
+                color: theme.palette.common.white,
+            },
+            [`&.${tableCellClasses.body}`]: {
+                fontSize: 14,
+            },
+        }));
 
-        return (
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <App />
-            </ThemeProvider>
-        );
-    }
-
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<RootPage/>);
-
-    let account = '';
-    async function getAccount() {
-        $('#account').text("Address: -");
-        let accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-        account = accounts[0];
-        $('#account').text("Address: " + account);
-    }
-
-    async function sendTransaction() {
-    	try {
-		    const params = JSON.parse($("#sendTransactionData").val());
-            const tx = await ethereum.request({
-                method: 'eth_sendTransaction',
-                params: [params],
-            });
-
-            var txt = $("#transactions");
-            let original = txt.val();
-            let originalArray = original.split("\n");
-
-            if (originalArray.length > 5) {
-                originalArray.shift();
-                originalArray.shift();
-            }
-
-            txt.val(originalArray.join("\n") + "\n" + tx + "\n");
-	    } catch (e) {
-	        return false;
+        function Copyright() {
+            return (
+                <Typography variant="body2" color="text.secondary" align="center">
+                    {'Copyright © '}
+                    <Link color="inherit" href="#">
+                        Web3 Sandbox
+                    </Link>{' '}
+                    {new Date().getFullYear()}
+                    {'.'}
+                </Typography>
+            );
         }
-    }
 
-    ethereum.on('accountsChanged', function(accounts) {
-        if (accounts.length === 0) {
-            $('#account').text("Address: -");
-        } else if (accounts[0] !== account) {
-            console.log('METAMASK: accountsChanged')
+        function RootPage() {
+            return (
+                <ThemeProvider theme={theme}>
+                    <CssBaseline />
+                    <App />
+                </ThemeProvider>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<RootPage />);
+
+        let account = '';
+        let accounts = [];
+        let index = 0;
+        let transactions = [];
+
+        async function getAccount() {
+            if (account !== '') return;
+
+            $('#account').text("Connect");
+            accounts = await ethereum.request({ method: 'eth_requestAccounts' });
             account = accounts[0];
-            $('#account').text("Address: " + account);
+            $('#account').text("Connected");
+            flush();
         }
-    });
 
-   $(document).ready(function(){
-       $("#sendTransactionData").change(function(){
-           try {
-               let data = JSON.parse($("#sendTransactionData").val());
-               $("#sendTransactionData").val(JSON.stringify(data, null, 2))
-           } catch (e) {}
-       }); 
-   });
-   
-    function App() {
-        return (
-            <Container maxWidth="md">
-                <Box sx={{ my: 4 }}>
-                    <Typography variant="h4" component="h1" gutterBottom>Web3 Sandbox</Typography>
-                    <Divider />
-                    <br/>
-                    <Button onClick={getAccount} variant="contained" color="primary" id="account">Address: -</Button>
-                    <br/><br/>
-                    <TextField
-                        id="sendTransactionData"
-                        label="Transaction (JSON)"
-                        multiline
-                        fullWidth
-                        focused
-                        rows={13}
-                        color="primary"
-                    />
-                    <br/><br/>
-                    <Button onClick={sendTransaction} variant="contained" color="primary">Submit</Button>
-                    <br/><br/>
-                    <Divider />
-                   
-					<Box sx={{ my: 3 }}>
-                        <Typography variant="h4" component="h1" gutterBottom></Typography>
+        function flush() {
+            root.render(<RootPage />);
+        }
+
+        String.prototype.format = function() {
+            const formatted = this;
+            const firstSixChars = formatted.slice(0, 6);
+            const lastSixChars = formatted.slice(-6);
+            return firstSixChars + '...' + lastSixChars;
+        }
+
+        async function sendTransaction() {
+            try {
+                const params = JSON.parse($("#sendTransactionData").val());
+                const tx = await ethereum.request({
+                    method: 'eth_sendTransaction',
+                    params: [params],
+                });
+
+                if (transactions.length === 5) {
+                    transactions.shift();
+                }
+
+                ++index;
+                transactions.push({
+                    index,
+                    tx,
+                    account: account.format(),
+                    time: new Date().toLocaleTimeString(),
+                });
+
+                flush();
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function handleChangeAccount(e) {
+            account = e.target.value
+            flush();
+        }
+
+        ethereum.on('accountsChanged', function (accounts) {
+            if (accounts.length === 0) {
+                $('#account').text("Connect");
+                account = '';
+            } else if (accounts[0] !== account) {
+                console.log('METAMASK: accountsChanged')
+                account = accounts[0];
+            }
+            flush();
+        });
+
+        $(document).ready(function () {
+            $("#sendTransactionData").change(function () {
+                try {
+                    let data = JSON.parse($("#sendTransactionData").val());
+                    $("#sendTransactionData").val(JSON.stringify(data, null, 2))
+                } catch (e) { }
+            });
+        });
+
+        function App() {
+            return (
+                <Container maxWidth="md">
+                    <Box sx={{ my: 4 }}>
+                        <Typography variant="h4" component="h1" gutterBottom>Web3 Sandbox</Typography>
+                        <Divider />
+                        <Button
+                            sx={{ my: 2 }}
+                            onClick={getAccount}
+                            variant="contained"
+                            color={account === '' ? 'primary' : 'success'}
+                            aria-label="select merge strategy"
+                            id="account"
+                        >Connect Wallet</Button>
+
+                        <FormControl sx={{ minWidth: '100%'}}>
+                            <InputLabel>Select Account</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-autowidth-label"
+                                id="demo-simple-select-autowidth"
+                                value={account}
+                                onChange={handleChangeAccount}
+                                autoWidth
+                                label="Select Account"
+                                disabled={account === ''}
+                            >
+                                {accounts.map((account, idx) => (
+                                    <MenuItem value={account}>
+                                        <em>{idx}: {account}</em>
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+
                         <TextField
-                            id="transactions"
-                            label="Transactions"
+                            sx={{ my: 3 }}
+                            id="sendTransactionData"
+                            label="Transaction (JSON)"
                             multiline
                             fullWidth
                             focused
-                            rows={7}
+                            rows={13}
                             color="primary"
-                            InputProps={{
-                              readOnly: true,
-                            }}
                         />
+                        <Button onClick={sendTransaction} variant="contained" color="primary">Submit</Button>
+
+                        <TableContainer component={Paper} sx={{ my: 3 }}>
+                            <Table aria-label="table">
+                                <TableHead>
+                                    <TableRow>
+                                        <StyledTableCell align="center" width="30">No.</StyledTableCell>
+                                        <StyledTableCell align="center" width="140">Account</StyledTableCell>
+                                        <StyledTableCell align="center">Transaction Hash</StyledTableCell>
+                                        <StyledTableCell align="center" width="120">Time</StyledTableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {(transactions.length === 0) ?
+                                        <StyledTableRow>
+                                            <StyledTableCell align="center" colSpan={4}>No data</StyledTableCell>
+                                        </StyledTableRow>
+                                         : ''
+                                    }
+                                    {transactions.map((transaction) => (
+                                        <StyledTableRow key={transaction.index}>
+                                            <StyledTableCell align="center" width="30">{transaction.index}</StyledTableCell>
+                                            <StyledTableCell width="140">{transaction.account}</StyledTableCell>
+                                            <StyledTableCell>{transaction.tx}</StyledTableCell>
+                                            <StyledTableCell width="120">{transaction.time}</StyledTableCell>
+                                        </StyledTableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                        <br /><br />
+                        <Copyright />
                     </Box>
-                    <br/><br/>
-                    <Copyright />
-                </Box>
-            </Container>
-        );
-    }
-</script>
+                </Container>
+            );
+        }
+    </script>
 </body>
 
 </html>
