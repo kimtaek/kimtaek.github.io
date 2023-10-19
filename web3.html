@@ -106,6 +106,7 @@
         let accounts = [];
         let index = 0;
         let showAlert = false;
+        let jsonUpdated = false;
         let transactions = [];
 
         async function getAccount() {
@@ -130,23 +131,33 @@
         }
 
         async function sendTransaction() {
+            showAlert = false;
+            jsonUpdated = false;
+            flush();
+
             try {
                 let params = JSON.parse($("#sendTransactionData").val());
 
-                let jsonUpdated = false;
                 if (params.gasPrice !== undefined) {
-                    jsonUpdated = true;
-                    params.gasPrice = await ethereum.request({method: 'eth_gasPrice'});
+                    const newGasPrice = await ethereum.request({method: 'eth_gasPrice'});
+                    if (params.gasPrice !== newGasPrice) {
+                        params.gasPrice = newGasPrice;
+                        jsonUpdated = true;
+                        console.log('price')
+                    }
                 }
 
-                if (params.from !== undefined) {
+                if (params.from !== undefined && params.from.toLowerCase() !== account.toLowerCase()) {
+                    params.from = account
                     jsonUpdated = true;
-                    params.from = account;
+                    console.log('from')
                 }
 
                 if (jsonUpdated) {
                     $("#sendTransactionData").val(JSON.stringify(params, null, 2))
                     showAlert = true;
+                    console.log('show')
+                    flush();
                 }
 
                 const tx = await ethereum.request({
@@ -243,9 +254,9 @@
                             color="primary"
                         />
 
-                        { showAlert ? <Alert sx={{ mb: 3 }} severity="warning" variant="filled" onClose={() => {showAlert = false; flush()}} >Transaction JSON ( gasPrice OR from ) Updated!</Alert> : null }
-
                         <Button onClick={sendTransaction} variant="contained" color="primary">Submit</Button>
+
+                        { showAlert ? <Alert sx={{ mt: 3 }} severity="warning" variant="filled" onClose={() => {showAlert = false; flush()}}>Transaction (JSON) <b>GasPrice</b> or <b>From</b> value updated!</Alert> : null }
 
                         <TableContainer component={Paper} sx={{ my: 3 }}>
                             <Table aria-label="table">
