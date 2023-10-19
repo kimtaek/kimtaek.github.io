@@ -4,6 +4,7 @@
 <head>
     <title>Web3 Sandbox</title>
     <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="https://europe1.discourse-cdn.com/metamask/optimized/1X/652f75ffc824f0490787b960828f732de01847e1_2_32x32.png">
     <meta content="initial-scale=1, width=device-width" name="viewport" />
     <script crossorigin="anonymous" src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
     <script crossorigin="anonymous" src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
@@ -42,7 +43,8 @@
             TableCell,
             styled,
             tableCellClasses,
-            Paper
+            Paper,
+            Alert
         } = MaterialUI;
 
         const theme = createTheme({
@@ -103,6 +105,7 @@
         let account = '';
         let accounts = [];
         let index = 0;
+        let showAlert = false;
         let transactions = [];
 
         async function getAccount() {
@@ -128,7 +131,24 @@
 
         async function sendTransaction() {
             try {
-                const params = JSON.parse($("#sendTransactionData").val());
+                let params = JSON.parse($("#sendTransactionData").val());
+
+                let jsonUpdated = false;
+                if (params.gasPrice !== undefined) {
+                    jsonUpdated = true;
+                    params.gasPrice = await ethereum.request({method: 'eth_gasPrice'});
+                }
+
+                if (params.from !== undefined) {
+                    jsonUpdated = true;
+                    params.from = account;
+                }
+
+                if (jsonUpdated) {
+                    $("#sendTransactionData").val(JSON.stringify(params, null, 2))
+                    showAlert = true;
+                }
+
                 const tx = await ethereum.request({
                     method: 'eth_sendTransaction',
                     params: [params],
@@ -146,6 +166,7 @@
                     time: new Date().toLocaleTimeString(),
                 });
 
+                showAlert = false;
                 flush();
             } catch (e) {
                 return false;
@@ -221,6 +242,9 @@
                             rows={13}
                             color="primary"
                         />
+
+                        { showAlert ? <Alert sx={{ mb: 3 }} severity="warning" variant="filled" onClose={() => {showAlert = false; flush()}} >Transaction JSON ( gasPrice OR from ) Updated!</Alert> : null }
+
                         <Button onClick={sendTransaction} variant="contained" color="primary">Submit</Button>
 
                         <TableContainer component={Paper} sx={{ my: 3 }}>
