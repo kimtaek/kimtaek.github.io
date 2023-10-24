@@ -44,7 +44,9 @@
             styled,
             tableCellClasses,
             Paper,
-            Alert
+            Alert,
+            Grid,
+            Item
         } = MaterialUI;
 
         const theme = createTheme({
@@ -254,7 +256,15 @@
                             color="primary"
                         />
 
-                        <Button onClick={sendTransaction} variant="contained" color="primary">Submit</Button>
+                        <Grid container spacing={3}>
+                            <Grid item xs>
+                                <Button onClick={sendTransaction} variant="contained" color="primary">Submit</Button>
+                            </Grid>
+                            <Grid item xs={6}></Grid>
+                            <Grid item xs={{align: 'right'}}>
+                                <Button onClick={()=> {transactions = []; flush();}} variant="outlined" color="error">Clear</Button>
+                            </Grid>
+                        </Grid>
 
                         { showAlert ? <Alert sx={{ mt: 3 }} severity="warning" variant="filled" onClose={() => {showAlert = false; flush()}}>Transaction (JSON) <b>GasPrice</b> or <b>From</b> value updated!</Alert> : null }
 
