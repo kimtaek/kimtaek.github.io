@@ -3,250 +3,408 @@
 
 <head>
     <title>Web3 Sandbox</title>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="https://europe1.discourse-cdn.com/metamask/optimized/1X/652f75ffc824f0490787b960828f732de01847e1_2_32x32.png">
-    <meta content="initial-scale=1, width=device-width" name="viewport" />
+    <meta charset="utf-8"/>
+    <link rel="icon" type="image/png"
+          href="https://europe1.discourse-cdn.com/metamask/optimized/1X/652f75ffc824f0490787b960828f732de01847e1_2_32x32.png">
+    <meta content="initial-scale=1, width=device-width" name="viewport"/>
     <script crossorigin="anonymous" src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
     <script crossorigin="anonymous" src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-    <script crossorigin="anonymous" src="https://unpkg.com/@mui/material@latest/umd/material-ui.production.min.js"></script>
+    <script crossorigin="anonymous"
+            src="https://unpkg.com/@mui/material@latest/umd/material-ui.production.min.js"></script>
     <script crossorigin="anonymous" src="https://unpkg.com/@babel/standalone@latest/babel.min.js"></script>
     <script crossorigin="anonymous" src="https://unpkg.com/jquery@3.7.1/dist/jquery.js"></script>
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap"/>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap"/>
 </head>
 
 <body>
-    <div id="root"></div>
-    <script type="text/babel">
-        // https://mui.com/material-ui/react-text-field/
-        const {
-            Divider,
-            TextField,
-            CssBaseline,
-            ThemeProvider,
-            Typography,
-            Container,
-            createTheme,
-            Box,
-            Button,
-            Link,
-            FormControl,
-            InputLabel,
-            Select,
-            MenuItem,
-            TableContainer,
-            Table,
-            TableHead,
-            TableBody,
-            TableRow,
-            TableCell,
-            styled,
-            tableCellClasses,
-            Paper,
-            Alert,
-            Grid,
-            Item
-        } = MaterialUI;
+<div id="root"></div>
+<script type="text/babel">
+    // https://mui.com/material-ui/react-text-field/
+    const {
+        Divider,
+        TextField,
+        CssBaseline,
+        ThemeProvider,
+        Typography,
+        Container,
+        createTheme,
+        Box,
+        Button,
+        Link,
+        FormControl,
+        InputLabel,
+        Select,
+        MenuItem,
+        TableContainer,
+        Table,
+        TableHead,
+        TableBody,
+        TableRow,
+        TableCell,
+        styled,
+        tableCellClasses,
+        Paper,
+        Alert,
+        Grid,
+        Tabs,
+        Tab,
+        Snackbar,
+    } = MaterialUI;
 
-        const theme = createTheme({
-            palette: {
-                primary: {
-                    light: '#333',
-                    main: '#000',
-                    dark: '#000',
-                    contrastText: '#fff',
-                },
+    const theme = createTheme({
+        palette: {
+            primary: {
+                light: '#333',
+                main: '#000',
+                dark: '#000',
+                contrastText: '#fff',
             },
-        });
+        },
+    });
 
-        const StyledTableRow = styled(TableRow)(({ theme }) => ({
-            '&:nth-of-type(odd)': {
-                backgroundColor: theme.palette.action.hover,
-            },
-            '&:last-child td, &:last-child th': {
-                border: 0,
-            },
-        }));
+    const StyledTableRow = styled(TableRow)(({theme}) => ({
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        },
+        '&:last-child td, &:last-child th': {
+            border: 0,
+        },
+    }));
 
-        const StyledTableCell = styled(TableCell)(({ theme }) => ({
-            [`&.${tableCellClasses.head}`]: {
-                backgroundColor: theme.palette.common.black,
-                color: theme.palette.common.white,
-            },
-            [`&.${tableCellClasses.body}`]: {
-                fontSize: 14,
-            },
-        }));
+    const StyledTableCell = styled(TableCell)(({theme}) => ({
+        [`&.${tableCellClasses.head}`]: {
+            backgroundColor: theme.palette.common.black,
+            color: theme.palette.common.white,
+        },
+        [`&.${tableCellClasses.body}`]: {
+            fontSize: 14,
+        },
+    }));
 
-        function Copyright() {
-            return (
-                <Typography variant="body2" color="text.secondary" align="center">
-                    {'Copyright © '}
-                    <Link color="inherit" href="#">
-                        Web3 Sandbox
-                    </Link>{' '}
-                    {new Date().getFullYear()}
-                    {'.'}
-                </Typography>
-            );
-        }
+    function Copyright() {
+        return (
+            <Typography variant="body2" color="text.secondary" align="center">
+                {'Copyright © '}
+                <Link color="inherit" href="#">
+                    Web3 Sandbox
+                </Link>{' '}
+                {new Date().getFullYear()}
+                {'.'}
+            </Typography>
+        );
+    }
 
-        function RootPage() {
-            return (
-                <ThemeProvider theme={theme}>
-                    <CssBaseline />
-                    <App />
-                </ThemeProvider>
-            );
-        }
+    function RootPage() {
+        return (
+            <ThemeProvider theme={theme}>
+                <CssBaseline/>
+                <App/>
+            </ThemeProvider>
+        );
+    }
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<RootPage />);
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<RootPage/>);
 
-        let account = '';
-        let accounts = [];
-        let index = 0;
-        let showAlert = false;
-        let jsonUpdated = false;
-        let transactions = [];
+    let tab = 'Transaction';
+    let account = '';
+    let accounts = [];
+    let t_index = 0;
+    let s_index = 0;
+    let showAlert = false;
+    let showNotice = false;
+    let jsonUpdated = false;
+    let signatures = [];
+    let transactions = [];
 
-        async function getAccount() {
-            if (account !== '') return;
+    async function getAccount() {
+        if (account !== '') return;
 
-            $('#account').text("Connect");
-            accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-            account = accounts[0];
-            $('#account').text("Connected");
-            flush();
-        }
+        $('#account').text("Connect");
+        accounts = await ethereum.request({method: 'eth_requestAccounts'});
+        account = accounts[0];
+        $('#account').text("Connected");
+        flush();
+    }
 
-        function flush() {
-            root.render(<RootPage />);
-        }
-
-        String.prototype.format = function() {
-            const formatted = this;
-            const firstSixChars = formatted.slice(0, 6);
-            const lastSixChars = formatted.slice(-6);
-            return firstSixChars + '...' + lastSixChars;
-        }
-
-        async function sendTransaction() {
-            showAlert = false;
-            jsonUpdated = false;
-            flush();
-
-            try {
-                let params = JSON.parse($("#sendTransactionData").val());
-
-                if (params.gasPrice !== undefined) {
-                    const newGasPrice = await ethereum.request({method: 'eth_gasPrice'});
-                    if (params.gasPrice !== newGasPrice) {
-                        params.gasPrice = newGasPrice;
-                        jsonUpdated = true;
-                        console.log('price')
-                    }
-                }
-
-                if (params.from !== undefined && params.from.toLowerCase() !== account.toLowerCase()) {
-                    params.from = account
-                    jsonUpdated = true;
-                    console.log('from')
-                }
-
-                if (jsonUpdated) {
-                    $("#sendTransactionData").val(JSON.stringify(params, null, 2))
-                    showAlert = true;
-                    console.log('show')
-                    flush();
-                }
-
-                const tx = await ethereum.request({
-                    method: 'eth_sendTransaction',
-                    params: [params],
-                });
-
-                if (transactions.length === 5) {
-                    transactions.shift();
-                }
-
-                ++index;
-                transactions.push({
-                    index,
-                    tx,
-                    account: account.format(),
-                    time: new Date().toLocaleTimeString(),
-                });
-
-                showAlert = false;
-                flush();
-            } catch (e) {
-                return false;
-            }
-        }
-
-        function handleChangeAccount(e) {
-            account = e.target.value
-            flush();
-        }
-
-        ethereum.on('accountsChanged', function (accounts) {
-            if (accounts.length === 0) {
-                $('#account').text("Connect");
-                account = '';
-            } else if (accounts[0] !== account) {
-                console.log('METAMASK: accountsChanged')
-                account = accounts[0];
-            }
-            flush();
-        });
+    function flush() {
+        root.render(<RootPage/>);
 
         $(document).ready(function () {
-            $("#sendTransactionData").change(function () {
-                try {
-                    let data = JSON.parse($("#sendTransactionData").val());
-                    $("#sendTransactionData").val(JSON.stringify(data, null, 2))
-                } catch (e) { }
+            $(".copy").on('click', function () {
+                navigator.clipboard.writeText($(this).data('copy-text')).then(function () {
+                    showNotice = true
+                    flush()
+                });
+            })
+        })
+    }
+
+    String.prototype.format = function () {
+        const formatted = this;
+        const firstSixChars = formatted.slice(0, 6);
+        const lastSixChars = formatted.slice(-6);
+        return firstSixChars + '...' + lastSixChars;
+    }
+
+    String.prototype.long_format = function () {
+        const formatted = this;
+        const firstSixChars = formatted.slice(0, 15);
+        const lastSixChars = formatted.slice(-15);
+        return firstSixChars + '...' + lastSixChars;
+    }
+
+    async function sign() {
+        if (account === "") {
+            return
+        }
+
+        try {
+            const message = $('#message').val();
+
+            const signature = await ethereum.request({
+                method: 'personal_sign',
+                params: [message, account],
             });
+
+            if (signatures.length === 5) {
+                signatures.shift();
+            }
+
+            ++s_index;
+            signatures.push({
+                index: s_index,
+                signature: signature,
+                account: account,
+                s_account: account.format(),
+                s_signature: signature.long_format(),
+                time: new Date().toLocaleString(undefined, {hour: '2-digit', hour12: false, minute:'2-digit', second:'2-digit'})
+            });
+
+            flush()
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async function sendTransaction() {
+        showAlert = false;
+        jsonUpdated = false;
+        flush();
+
+        try {
+            let params = JSON.parse($("#sendTransactionData").val());
+
+            if (params.gasPrice !== undefined) {
+                const newGasPrice = await ethereum.request({method: 'eth_gasPrice'});
+                if (params.gasPrice !== newGasPrice) {
+                    params.gasPrice = newGasPrice;
+                    jsonUpdated = true;
+                }
+            }
+
+            if (params.from !== undefined && params.from.toLowerCase() !== account.toLowerCase()) {
+                params.from = account
+                jsonUpdated = true;
+            }
+
+            if (jsonUpdated) {
+                $("#sendTransactionData").val(JSON.stringify(params, null, 2))
+                showAlert = true;
+                flush();
+            }
+
+            const tx = await ethereum.request({
+                method: 'eth_sendTransaction',
+                params: [params],
+            });
+
+            if (transactions.length === 5) {
+                transactions.shift();
+            }
+
+            ++t_index;
+            transactions.push({
+                index: t_index,
+                tx: tx,
+                account: account,
+                s_account: account.format(),
+                time: new Date().toLocaleString(undefined, {hour: '2-digit', hour12: false, minute:'2-digit', second:'2-digit'})
+            });
+
+            showAlert = false;
+            flush();
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function handleChangeAccount(e) {
+        account = e.target.value
+        flush();
+    }
+
+    function handleChangeTab(e, value) {
+        tab = value
+        flush();
+    }
+
+    ethereum.on('accountsChanged', function (accounts) {
+        if (accounts.length === 0) {
+            $('#account').text("Connect");
+            account = '';
+        } else if (accounts[0] !== account) {
+            account = accounts[0];
+        }
+        flush();
+    });
+
+    $(document).ready(function () {
+        $("#sendTransactionData").change(function () {
+            try {
+                let data = JSON.parse($("#sendTransactionData").val());
+                $("#sendTransactionData").val(JSON.stringify(data, null, 2))
+            } catch (e) { }
         });
+    });
 
-        function App() {
-            return (
-                <Container maxWidth="md">
-                    <Box sx={{ my: 4 }}>
-                        <Typography variant="h4" component="h1" gutterBottom>Web3 Sandbox</Typography>
-                        <Divider />
-                        <Button
-                            sx={{ my: 2 }}
-                            onClick={getAccount}
-                            variant="contained"
-                            color={account === '' ? 'primary' : 'success'}
-                            aria-label="select merge strategy"
-                            id="account"
-                        >Connect Wallet</Button>
+    function App() {
+        return (
+            <Container maxWidth="md">
+                <Snackbar open={showNotice} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }} >
+                    <Alert severity="success" variant="filled" sx={{ width: '100%', backgroundColor: "#333", color: "#FFF" }} onClose={() => {showNotice = false; flush()}}>
+                        Selected data has been copied to the clipboard.
+                    </Alert>
+                </Snackbar>
 
-                        <FormControl sx={{ minWidth: '100%'}}>
-                            <InputLabel>Select Account</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-autowidth-label"
-                                id="demo-simple-select-autowidth"
-                                value={account}
-                                onChange={handleChangeAccount}
-                                autoWidth
-                                label="Select Account"
-                                disabled={account === ''}
-                            >
-                                {accounts.map((account, idx) => (
-                                    <MenuItem value={account}>
-                                        <em>{idx}: {account}</em>
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
+                <Box sx={{my: 5}}>
+                    <Typography variant="h4" component="h1" gutterBottom>Web3 Sandbox</Typography>
+                    <Divider/>
 
+                    <Tabs value={tab}
+                          textColor="#333"
+                          aria-label="basic tabs"
+                          onChange={handleChangeTab}
+                    >
+                        <Tab value="" label="Menu" disabled></Tab>
+                        <Tab value="Transaction"
+                             label="Transaction"
+                             sableFocusRipple
+                             disableRipple
+                             disabled={tab === 'Transaction'}
+                        />
+                        <Tab value="Signature"
+                             label="Signature"
+                             sableFocusRipple
+                             disableRipple
+                             disabled={tab === 'Signature'}
+                        />
+                    </Tabs>
+
+                    <Divider/><br/>
+
+                    <Box>
+                        <Grid container spacing={1}>
+                            <Grid item xs={3}>
+                                <Button
+                                    onClick={getAccount}
+                                    variant="contained"
+                                    color={account === '' ? 'primary' : 'success'}
+                                    aria-label="select merge strategy"
+                                    id="account"
+                                    fullWidth
+                                    size="large"
+                                    style={{height: "100%"}}
+                                >Connect Wallet</Button>
+                            </Grid>
+                            <Grid item xs>
+                                <FormControl sx={{minWidth: '100%'}}>
+                                    <InputLabel>Select Account</InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-autowidth-label"
+                                        id="demo-simple-select-autowidth"
+                                        value={account}
+                                        onChange={handleChangeAccount}
+                                        autoWidth
+                                        label="Select Account"
+                                        disabled={account === ''}
+                                    >
+                                        {accounts.map((account, idx) => (
+                                            <MenuItem value={account}>
+                                                <em>{idx}: {account}</em>
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                        </Grid>
+                    </Box>
+
+                    <Box id="Tab_Signature" sx={{display: tab !== 'Signature' ? 'none' : 'block'}}>
                         <TextField
-                            sx={{ my: 3 }}
+                            sx={{my: 3}}
+                            id="message"
+                            label="Sign Message (STRING)"
+                            multiline
+                            rows={13}
+                            fullWidth
+                            focused
+                            color="primary"
+                        />
+
+                        <Grid container spacing={3}>
+                            <Grid item xs>
+                                <Button onClick={sign} variant="contained" color="primary">Submit</Button>
+                            </Grid>
+                            <Grid item xs={6}></Grid>
+                            <Grid item xs={{align: 'right'}}>
+                                <Button onClick={() => {
+                                    signatures = [];
+                                    $('#message').val('')
+                                    flush();
+                                }} variant="outlined" color="error">Clear</Button>
+                            </Grid>
+                        </Grid>
+
+                        <TableContainer component={Paper} sx={{my: 3}}>
+                            <Table aria-label="table">
+                                <TableHead>
+                                    <TableRow>
+                                        <StyledTableCell align="center" width="30">No.</StyledTableCell>
+                                        <StyledTableCell align="center" width="140">Account</StyledTableCell>
+                                        <StyledTableCell align="center">Signature</StyledTableCell>
+                                        <StyledTableCell align="center" width="120">Time</StyledTableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {(signatures.length === 0) ?
+                                        <StyledTableRow>
+                                            <StyledTableCell align="center" colSpan={4}>No data</StyledTableCell>
+                                        </StyledTableRow>
+                                        : ''
+                                    }
+                                    {signatures.map((signature) => (
+                                        <StyledTableRow key={signature.index}>
+                                            <StyledTableCell align="center" width="30">{signature.index}</StyledTableCell>
+                                            <StyledTableCell align="center" className="copy" data-copy-text={signature.account} width="140">{signature.s_account}</StyledTableCell>
+                                            <StyledTableCell align="center" className="copy" data-copy-text={signature.signature}>{signature.s_signature}</StyledTableCell>
+                                            <StyledTableCell align="center" width="120">{signature.time}</StyledTableCell>
+                                        </StyledTableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                            <Alert severity="info" variant="filled" sx={{ width: '100%', backgroundColor: "rgba(0, 0, 0, 0.04)", color: "text.secondary" }}>
+                                Account, Transaction Hash, Signature available copy to clipboard!
+                            </Alert>
+                        </TableContainer>
+                    </Box>
+
+                    <Box id="Tab_Transaction" sx={{display: tab !== 'Transaction' ? 'none' : 'block'}}>
+                        <TextField
+                            sx={{my: 3}}
                             id="sendTransactionData"
                             label="Transaction (JSON)"
                             multiline
@@ -262,13 +420,19 @@
                             </Grid>
                             <Grid item xs={6}></Grid>
                             <Grid item xs={{align: 'right'}}>
-                                <Button onClick={()=> {transactions = []; flush();}} variant="outlined" color="error">Clear</Button>
+                                <Button onClick={() => {
+                                    transactions = [];
+                                    flush();
+                                }} variant="outlined" color="error">Clear</Button>
                             </Grid>
                         </Grid>
 
-                        { showAlert ? <Alert sx={{ mt: 3 }} severity="warning" variant="filled" onClose={() => {showAlert = false; flush()}}>Transaction (JSON) <b>GasPrice</b> or <b>From</b> value updated!</Alert> : null }
+                        {showAlert ? <Alert sx={{mt: 3}} severity="warning" variant="filled" onClose={() => {
+                            showAlert = false;
+                            flush()
+                        }}>Transaction (JSON) <b>GasPrice</b> or <b>From</b> value updated!</Alert> : null}
 
-                        <TableContainer component={Paper} sx={{ my: 3 }}>
+                        <TableContainer component={Paper} sx={{my: 3}}>
                             <Table aria-label="table">
                                 <TableHead>
                                     <TableRow>
@@ -283,26 +447,30 @@
                                         <StyledTableRow>
                                             <StyledTableCell align="center" colSpan={4}>No data</StyledTableCell>
                                         </StyledTableRow>
-                                         : ''
+                                        : ''
                                     }
                                     {transactions.map((transaction) => (
                                         <StyledTableRow key={transaction.index}>
                                             <StyledTableCell align="center" width="30">{transaction.index}</StyledTableCell>
-                                            <StyledTableCell width="140">{transaction.account}</StyledTableCell>
-                                            <StyledTableCell>{transaction.tx}</StyledTableCell>
-                                            <StyledTableCell width="120">{transaction.time}</StyledTableCell>
+                                            <StyledTableCell align="center" className="copy" data-copy-text={transaction.account} width="140">{transaction.s_account}</StyledTableCell>
+                                            <StyledTableCell align="center" className="copy" data-copy-text={transaction.tx}>{transaction.tx}</StyledTableCell>
+                                            <StyledTableCell align="center" width="120">{transaction.time}</StyledTableCell>
                                         </StyledTableRow>
                                     ))}
                                 </TableBody>
                             </Table>
+                            <Alert severity="info" variant="filled" sx={{ width: '100%', backgroundColor: "rgba(0, 0, 0, 0.04)", color: "text.secondary" }}>
+                                Account, Transaction Hash, Signature available copy to clipboard!
+                            </Alert>
                         </TableContainer>
-                        <br /><br />
-                        <Copyright />
                     </Box>
-                </Container>
-            );
-        }
-    </script>
+
+                    <Copyright/>
+                </Box>
+            </Container>
+        );
+    }
+</script>
 </body>
 
 </html>
