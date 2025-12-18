@@ -8,7 +8,7 @@
     <meta content="initial-scale=1, width=device-width" name="viewport" />
     <script crossorigin="anonymous" src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
     <script crossorigin="anonymous" src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mui/material@5.16.7/umd/material-ui.production.min.js"></script>
+    <script crossorigin="anonymous" src="https://unpkg.com/@mui/material@5.2.7/umd/material-ui.production.min.js"></script>
     <script crossorigin="anonymous" src="https://unpkg.com/@babel/standalone@latest/babel.min.js"></script>
     <script crossorigin="anonymous" src="https://unpkg.com/jquery@3.7.1/dist/jquery.js"></script>
     <script src="./js/ethers.js"></script>
@@ -119,6 +119,7 @@
         let signatures = [];
         let transactions = [];
         let network = "KAIROS";
+        let provider
 
         function setNetwork(value) {
             network = value;
@@ -129,9 +130,16 @@
             if (account !== "") return;
 
             $("#account").text("Connect");
-            accounts = await ethereum.request({ method: "eth_requestAccounts" });
+            if (tab === "Sign.Transaction") {
+                await connect(window.klaytn)
+            } else {
+                accounts = await ethereum.request({ method: "eth_requestAccounts" });
+            }
+
             account = accounts[0];
-            $("#account").text("Connected");
+            if (account) {
+                $("#account").text("Connected");
+            }
             flush();
         }
 
@@ -202,25 +210,57 @@
             }
         }
 
+        async function connect(injectedProvider) {
+          if (!injectedProvider) {
+            alert("Please install wallet");
+            return;
+          }
+
+          provider = new ethers_ext.Web3Provider(injectedProvider);
+
+          injectedProvider.on("networkChanged", (chainId) => {
+            console.log("chainId changed", chainId);
+            provider = new ethers_ext.providers.Web3Provider(injectedProvider);
+          });
+
+          await provider.send("eth_requestAccounts");
+
+          accounts = await provider.listAccounts(); // internally eth_accounts
+          accounts = accounts.map(
+            (a, i) => {
+              if (i == 0) {
+                return a.address
+              }
+          });
+          $("#private").parent().siblings('label').html('KAIA')
+
+          injectedProvider.on("accountsChanged", async (changedAccounts) => {
+            account = changedAccounts[0];
+            console.log("accounts changed", account);
+            flush();
+          });
+        }
+
         async function signTransaction() {
             $("#signedRawTransaction").val("");
+            const data = $("#SignTransactionData").val();
+            if (data === "") {
+                return;
+            }
 
             try {
-                const endpoint = network === 'KAIA' ? 'https://public-en.node.kaia.io' : 'https://public-en-kairos.node.kaia.io';
-                const provider = new ethers_ext.providers.JsonRpcProvider(endpoint);
-                const privateKey = $("#private").val();
-                const data = $("#SignTransactionData").val();
+                const tx = JSON.parse(data);
+                tx.type = +tx.type
 
-                if (privateKey === "" || data === "") {
-                    return;
-                }
+                // const tx = {
+                //     data: "0xd09de08a",
+                //     to: "0xa9eF4a5BfB21e92C06da23Ed79294DaB11F5A6df",
+                //     feePayer: "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                //     type: 49
+                // }
 
-                const wallet = new ethers_ext.Wallet(privateKey, provider);
-                let params = JSON.parse(data);
-                params.from = wallet.address;
-
-                const populatedTx = await wallet.populateTransaction(params);
-                const rawTx = await wallet.signTransaction(populatedTx);
+                const signer = await provider.getSigner(account);
+                const rawTx = await signer.signTransaction(tx);
                 $("#signedRawTransaction").val(rawTx);
                 flush();
             } catch (e) {
@@ -382,9 +422,7 @@
 
                         <Box>
                             <Grid container spacing={1}>
-                                <Grid item xs={3}
-                                    sx={{ display: tab === "Sign.Transaction" ? "none" : "block" }}
-                                >
+                                <Grid item xs={3}>
                                     <Button
                                         onClick={getAccount}
                                         variant="contained"
@@ -398,36 +436,7 @@
                                         Connect Wallet
                                     </Button>
                                 </Grid>
-                                <Grid item xs={3}
-                                    sx={{ display: tab !== "Sign.Transaction" ? "none" : "block" }}
-                                >
-                                    <FormControl sx={{ minWidth: "100%" }}>
-                                        <InputLabel>Select Network</InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-autowidth-label"
-                                            id="network-simple-select-autowidth"
-                                            value={network}
-                                            onChange={(e) => setNetwork(e.target.value)}
-                                            autoWidth
-                                            style={{ width: '100%' }}
-                                            label="Select network"
-                                        >
-                                            <MenuItem value={'KAIROS'}>
-                                                <em>
-                                                    KAIROS
-                                                </em>
-                                            </MenuItem>
-                                            <MenuItem value={'KAIA'}>
-                                                <em>
-                                                    KAIA
-                                                </em>
-                                            </MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs
-                                    sx={{ display: tab === "Sign.Transaction" ? "none" : "block" }}
-                                >
+                                <Grid item xs>
                                     <FormControl sx={{ minWidth: "100%" }} focused>
                                         <InputLabel>Select Account</InputLabel>
                                         <Select
@@ -448,21 +457,6 @@
                                                 </MenuItem>
                                             ))}
                                         </Select>
-                                    </FormControl>
-                                </Grid>
-
-                                <Grid item xs
-                                    sx={{ display: tab !== "Sign.Transaction" ? "none" : "block" }}
-                                >
-                                    <FormControl sx={{ minWidth: "100%" }}>
-                                        <TextField
-                                            id="private"
-                                            label="Private Key"
-                                            fullWidth
-                                            rows={1}
-                                            focused
-                                            color="primary"
-                                        />
                                     </FormControl>
                                 </Grid>
                             </Grid>
